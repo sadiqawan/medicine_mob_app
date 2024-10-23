@@ -24,18 +24,31 @@ PageView(
 
             Positioned(
 
+              child: Row(
+                children: [
+                   Positioned(
+             
               child: InkWell(
                 onTap: () {
-                  if (pageController.page! < 2) {
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeIn,
-                    );
-                  } else {
-                    // Get.to(() => SignUpScreen());
-                  }
+                  // Get.to(() => SignUpScreen());
                 },
-                child: ElevatedButton(onPressed: (){}, child: Text("")),
+                child: ElevatedButton(onPressed: (){}, child: Text("Skip")),
+              ),
+            ),
+                  InkWell(
+                    onTap: () {
+                      if (pageController.page! < 2) {
+                        pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
+                      } else {
+                        // Get.to(() => SignUpScreen());
+                      }
+                    },
+                    child: ElevatedButton(onPressed: (){}, child: Text("Move To Next Page")),
+                  ),
+                ],
               ),
             ),
         ],
