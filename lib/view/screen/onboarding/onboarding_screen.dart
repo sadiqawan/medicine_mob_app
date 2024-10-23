@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:medicine_app/constant/color_const.dart';
+import 'package:medicine_app/view/screen/home/home_screen.dart';
+import 'package:medicine_app/view/screen/onboarding/screen_one.dart';
+import 'package:medicine_app/view/screen/onboarding/screen_two.dart';
+import 'package:medicine_app/view/screen/onboarding/screen_three.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -6,53 +13,81 @@ class OnboardingScreen extends StatefulWidget {
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
+
 final PageController pageController = PageController();
+
 class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
-      body: Stack(
-        children: [
-PageView(
+    final Size screenSize = MediaQuery.of(context).size;
+    final double padding = screenSize.width * 0.05;
+
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            PageView(
               controller: pageController,
-              children: [
-                // ScreenOne(),
-                // ScreenTwo(),
-                // ScreenThree(),
+              children: const [
+                ScreenOne(),
+                ScreenTwo(),
+                ScreenThree(),
               ],
             ),
-
             Positioned(
-
+              bottom: padding,
+              left: padding,
+              right: padding,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   Positioned(
-             
-              child: InkWell(
-                onTap: () {
-                  // Get.to(() => SignUpScreen());
-                },
-                child: ElevatedButton(onPressed: (){}, child: Text("Skip")),
-              ),
-            ),
                   InkWell(
                     onTap: () {
-                      if (pageController.page! < 2) {
+                      Get.to(() => HomeScreen());
+                    },
+                    child: Text(
+                      "Skip",
+                      style: TextStyle(
+                        color: kLighyGrayColor,
+                        fontSize: screenSize.width * 0.04,
+                      ),
+                    ),
+                  ),
+                  SmoothPageIndicator(
+                    controller: pageController,
+                    count: 3,
+                    effect: WormEffect(
+                      dotColor: kInActiveDotColor,
+                      activeDotColor: kActiveDotColor,
+                      dotHeight: screenSize.height * 0.02,
+                      dotWidth: screenSize.height * 0.02,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (pageController.page != null && pageController.page! < 2) {
                         pageController.nextPage(
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeIn,
                         );
                       } else {
-                        // Get.to(() => SignUpScreen());
+                        Get.to(() => HomeScreen());
                       }
                     },
-                    child: ElevatedButton(onPressed: (){}, child: Text("Move To Next Page")),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        color: kPinkColor,
+                        fontSize: screenSize.width * 0.04,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
