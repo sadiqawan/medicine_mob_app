@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/controller/sign_up_controller.dart';
 import 'package:medicine_app/view/screen/auth/login/login_screen.dart';
+import 'package:medicine_app/view/screen/customer/customer_main_home_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -41,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
                   Text(
                     "Sign Up",
-                    style: extralargeText.copyWith(color: Colors.white),
+                    style: extraLargePrimaryText,
                   ),
                 ],
               ),
@@ -52,7 +53,7 @@ class SignUpScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Sign up as:", style: mediumText),
+                  Text("Sign up as:", style: mediumPrimaryText),
                   SizedBox(height: screenHeight * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -78,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.03),
-                  Text("Email", style: mediumText),
+                  Text("Email", style: mediumPrimaryText),
                   SizedBox(height: screenHeight * 0.01),
                   TextField(
                     controller: _emailController,
@@ -93,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  Text("Password", style: mediumText),
+                  Text("Password", style: mediumPrimaryText),
                   SizedBox(height: screenHeight * 0.01),
                   TextField(
                     controller: _passwordController,
@@ -114,6 +115,7 @@ class SignUpScreen extends StatelessWidget {
                       String email = _emailController.text;
                       String password = _passwordController.text;
                       String userType = _controller.userType.value;
+                      Get.to(()=>CustomerMainHomeScreen());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffEE6315),

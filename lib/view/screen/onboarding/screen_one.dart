@@ -33,7 +33,7 @@ class _ScreenOneState extends State<ScreenOne> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "Welcome to Medicine App Your Reliable Companion",
-                  style: largeText.copyWith(fontWeight: FontWeight.bold),
+                  style: largePrimaryText,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -46,7 +46,7 @@ class _ScreenOneState extends State<ScreenOne> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "Empowering You to Take Control of Your Health and Wellness Journey",
-                  style: mediumText,
+                  style: mediumPrimaryText,
                   textAlign: TextAlign.center,
                 ),
               ),

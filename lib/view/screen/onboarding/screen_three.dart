@@ -33,7 +33,7 @@ class _ScreenThreeState extends State<ScreenThree> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "Managing Medication Schedule",
-                  style: largeText.copyWith(fontWeight: FontWeight.bold),
+                  style: largePrimaryText,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -46,7 +46,7 @@ class _ScreenThreeState extends State<ScreenThree> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "Simplifying Your Treatment Plan with Personalized Reminders and Tracking",
-                  style: mediumText,
+                  style: mediumPrimaryText,
                   textAlign: TextAlign.center,
                 ),
               ),

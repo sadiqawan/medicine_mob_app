@@ -33,7 +33,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "View Medicine Online \nand Contact Pharmacy",
-                  style: largeText.copyWith(fontWeight: FontWeight.bold),
+                  style: largePrimaryText,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -46,7 +46,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "Easily Access Medications and Connect with Your Local Pharmacy for Assistance",
-                  style: mediumText,
+                  style: mediumPrimaryText,
                   textAlign: TextAlign.center,
                 ),
               ),

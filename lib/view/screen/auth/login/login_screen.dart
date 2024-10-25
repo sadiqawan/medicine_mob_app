@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/view/screen/auth/registration/sign_up_screen.dart';
+import 'package:medicine_app/view/screen/customer/customer_main_home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -56,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: screenHeight * 0.02),
                     Text(
                       "Login",
-                      style: extralargeText.copyWith(color: Colors.white),
+                      style: extraLargePrimaryText,
                     ),
                   ],
                 ),
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       "Email",
-                      style: mediumText,
+                      style: mediumPrimaryText,
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     TextField(
@@ -87,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: screenHeight * 0.02),
                     Text(
                       "Password",
-                      style: mediumText,
+                      style: mediumPrimaryText,
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     TextField(
@@ -108,6 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         String email = _emailController.text;
                         String password = _passwordController.text;
+                                              Get.to(()=>CustomerMainHomeScreen());
+
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffEE6315),
