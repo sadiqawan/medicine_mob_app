@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
+import 'package:medicine_app/view/screen/auth/login/login_screen.dart';
 import 'package:medicine_app/view/screen/home/home_screen.dart';
 import 'package:medicine_app/view/screen/onboarding/screen_one.dart';
 import 'package:medicine_app/view/screen/onboarding/screen_two.dart';
@@ -43,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => HomeScreen());
+                      Get.to(() => LoginScreen());
                     },
                     child: Text(
                       "Skip",
@@ -71,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           curve: Curves.easeIn,
                         );
                       } else {
-                        Get.to(() => HomeScreen());
+                        Get.to(() => LoginScreen());
                       }
                     },
                     child: Text(

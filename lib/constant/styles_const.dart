@@ -7,7 +7,11 @@ var largeText = GoogleFonts.overpass(
   fontSize: 24,
   color: kPrimaryColor,
 ));
-
+var extralargeText = GoogleFonts.overpass(
+    textStyle: TextStyle(
+  fontSize: 28,
+  color: kPrimaryColor,
+));
 var mediumText = GoogleFonts.overpass(
     textStyle: TextStyle(
   fontSize: 16,
