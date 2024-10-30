@@ -17,7 +17,7 @@ class _ScreenThreeState extends State<ScreenThree> {
       child: Scaffold(
         body: Stack(
           children: [
-            Container(
+            SizedBox(
               height: double.infinity,
               width: double.infinity,
               child: Image.asset(

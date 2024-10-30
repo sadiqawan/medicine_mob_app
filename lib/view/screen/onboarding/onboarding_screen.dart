@@ -44,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => LoginScreen());
+                      Get.to(() => const LoginScreen());
                     },
                     child: Text(
                       "Skip",
@@ -72,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           curve: Curves.easeIn,
                         );
                       } else {
-                        Get.to(() => LoginScreen());
+                        Get.to(() => const LoginScreen());
                       }
                     },
                     child: Text(

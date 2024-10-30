@@ -77,7 +77,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
             Container(
               height: screenHeight * 0.2,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xff1D2A4D),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
@@ -93,7 +93,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                       children: [
                         CircleAvatar(
                           radius: screenWidth * 0.06,
-                          backgroundImage: AssetImage("assets/images/profile.png"),
+                          backgroundImage: const AssetImage("assets/images/profile.png"),
                         ),
                         Icon(
                           Icons.logout_rounded,
@@ -133,8 +133,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                   hintText: 'Search Medicine...',
                   prefixIcon: Icon(Icons.search, size: screenWidth * 0.06),
                   filled: true,
-                  fillColor: Color(0xFFF2F2F2),
-                  border: OutlineInputBorder(
+                  fillColor: const Color(0xFFF2F2F2),
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     borderSide: BorderSide.none,
                   ),
@@ -161,7 +161,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               width: screenWidth * 0.95,
               height: screenHeight * 0.25,
               child: Padding(
@@ -179,7 +179,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                     return InkWell(
                       onTap: (){
 
-                        Get.to(()=>MedicineDetailScreen());
+                        Get.to(()=>const MedicineDetailScreen());
                       },
                       child: Container(
                         width: screenWidth * 0.4,
@@ -233,11 +233,11 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                     padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                     child: InkWell(
                       onTap: (){
-                        Get.to(()=>SellerDetailsScreen());
+                        Get.to(()=>const SellerDetailScreen());
                       },
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             height: screenHeight * 0.1,
                             width: screenWidth * 0.15,
                             child: ClipRRect(
@@ -257,7 +257,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                               Text(seller["location"]!, style: smallTextGray),
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Column(
                             children: [
                               Icon(Icons.star, color: Colors.amber, size: screenWidth * 0.04),

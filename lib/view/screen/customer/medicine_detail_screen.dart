@@ -26,27 +26,27 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Brufen 400mg", style: largePrimaryBoldText),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text("(Ibuprofenum)", style: smallTextGray),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
                   color: Colors.white,
                   width: double.infinity,
                   height: 166,
                   child: Image.asset("assets/images/medicine2.png"),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text("Product Details", style: mediumPrimaryBoldText),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(productDetails, style: smallTextGray),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text("Ingredients", style: mediumPrimaryBoldText),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(ingredient, style: smallTextGray),
-                Divider(),
-                SizedBox(height: 16), // Add spacing before the table
+                const Divider(),
+                const SizedBox(height: 16), // Add spacing before the table
                 Text("Information", style: mediumPrimaryBoldText), // Optional title for the table
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Table(
                   border: TableBorder.all(
                     color: Colors.grey,
@@ -104,7 +104,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20), // Add some space after the table
+                const SizedBox(height: 20), // Add some space after the table
               ],
             ),
           ),

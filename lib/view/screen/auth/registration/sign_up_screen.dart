@@ -10,6 +10,8 @@ class SignUpScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   final SignUpController _controller = Get.put(SignUpController());
 
+  SignUpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -23,7 +25,7 @@ class SignUpScreen extends StatelessWidget {
             Container(
               height: screenHeight * 0.4,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xff1D2A4D),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(100),
@@ -59,7 +61,7 @@ class SignUpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Obx(() => ChoiceChip(
-                        label: Text("Customer"),
+                        label: const Text("Customer"),
                         selected: _controller.userType.value == 'Customer',
                         onSelected: (selected) {
                           if (selected) {
@@ -68,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
                         },
                       )),
                       Obx(() => ChoiceChip(
-                        label: Text("Seller"),
+                        label: const Text("Seller"),
                         selected: _controller.userType.value == 'Seller',
                         onSelected: (selected) {
                           if (selected) {
@@ -115,16 +117,16 @@ class SignUpScreen extends StatelessWidget {
                       String email = _emailController.text;
                       String password = _passwordController.text;
                       String userType = _controller.userType.value;
-                      Get.to(()=>CustomerMainHomeScreen());
+                      Get.to(()=>const CustomerMainHomeScreen());
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffEE6315),
+                      backgroundColor: const Color(0xffEE6315),
                       padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
                     ),
                   ),
@@ -132,9 +134,9 @@ class SignUpScreen extends StatelessWidget {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Get.to(() => LoginScreen());
+                        Get.to(() => const LoginScreen());
                       },
-                      child: Text(
+                      child: const Text(
                         "Already have an account? Login",
                         style: TextStyle(color: Color(0xff1D2A4D)),
                       ),

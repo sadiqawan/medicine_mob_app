@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
-import 'package:medicine_app/constant/const_string_text.dart';
 import 'package:medicine_app/constant/styles_const.dart';
+import 'package:medicine_app/view/screen/chat/user_chatting_screen.dart';
 
-class SellerDetailsScreen extends StatefulWidget {
-  const SellerDetailsScreen({super.key});
+class SellerDetailScreen extends StatefulWidget {
+  const SellerDetailScreen({super.key});
 
   @override
-  State<SellerDetailsScreen> createState() => _SellerDetailsScreenState();
+  State<SellerDetailScreen> createState() => _SellerDetailScreenState();
 }
 
-class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
-  // Sample data for the seller details
-  final String sellerName = "ABC Pharmacy";
-  final String sellerAddress = "123 Main St, Minneapolis, MN";
-  final String sellerPhone = "(123) 456-7890";
-  final String sellerRating = "4.5";
-  final String sellerDescription = "ABC Pharmacy offers a wide range of medications and health products.";
-  
+class _SellerDetailScreenState extends State<SellerDetailScreen> {
+  double ratingValue = 4.0; // Initial rating value
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,7 +22,6 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
         backgroundColor: kWhite,
         appBar: AppBar(
           backgroundColor: kWhite,
-          title: Text(sellerName, style: mediumPrimaryBoldText), // Display seller name in the app bar
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -33,60 +29,134 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Seller Details", style: largePrimaryBoldText),
-                SizedBox(height: 16),
-                Text("Name: $sellerName", style: smallTextGray),
-                SizedBox(height: 10),
-                Text("Address: $sellerAddress", style: smallTextGray),
-                SizedBox(height: 10),
-                Text("Phone: $sellerPhone", style: smallTextGray),
-                SizedBox(height: 10),
-                Text("Rating: $sellerRating", style: smallTextGray),
-                SizedBox(height: 16),
-                Text("Description", style: mediumPrimaryBoldText),
-                SizedBox(height: 8),
-                Text(sellerDescription, style: smallTextGray),
-                SizedBox(height: 16),
-                Text("Products Offered", style: mediumPrimaryBoldText), // Title for products section
-                SizedBox(height: 8),
-                // You can create a list of products here; for now, we'll just add a placeholder
-                Table(
-                  border: TableBorder.all(
-                    color: Colors.grey,
-                    width: 1,
-                    style: BorderStyle.solid,
-                  ),
-                  children: [
-                    TableRow(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Product 1", style: smallTextGray),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Product 1 Details", style: smallTextGray),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Product 2", style: smallTextGray),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Product 2 Details", style: smallTextGray),
-                        ),
-                      ],
-                    ),
-                    // Add more products as needed
-                  ],
+                // Pharmacy Name
+                Text("Dream for Health Pharmacy", style: largePrimaryBoldText),
+                const SizedBox(height: 5),
+
+                // Logo
+                Container(
+                  color: Colors.white,
+                  width: double.infinity,
+                  height: 166,
+                  child: Image.asset("assets/images/sale_logo2.jpg"),
                 ),
-                SizedBox(height: 20), // Add some space after the table
+                const SizedBox(height: 16),
+
+                // Seller Details
+                Text("Seller Details", style: mediumPrimaryBoldText),
+                const SizedBox(height: 8),
+                Text("Address: Minneapolis, Minnesota", style: smallTextGray),
+                const SizedBox(height: 4),
+                Text("Contact Number: +1 234 567 890", style: smallTextGray),
+                const SizedBox(height: 4),
+                Text("Working Hours: 9:00 to 17:00", style: smallTextGray),
+                const SizedBox(height: 4),
+
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to Google Maps with the given location
+                    // Use latitude and longitude for navigation
+                  },
+                  child: Text(
+                    "View Live Location",
+                    style: smallTextGray.copyWith(color: Colors.blue),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Top Products Section with ListView.builder and "Buy Now" button
+                Text("Top Products", style: mediumPrimaryBoldText),
+                const SizedBox(height: 8),
+                SizedBox(
+                  height: 200, // Adjust height as needed
+                  child: ListView.builder(
+                    itemCount: 5, // Replace with actual product count
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          leading: Image.asset("assets/images/medicine1.png"), // Replace with product image
+                          title: Text("Product ${index + 1}", style: smallTextGray),
+                          subtitle: 
+                              Text("Product description", style: smallTextGray),
+                              trailing: ElevatedButton(
+                                onPressed: () {
+                                  // Add buy now functionality here
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: Text("Buy Now",style: smallTextWhiteBold,),
+                              ),
+                              
+                            
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Rating Section
+                Text("Rating", style: mediumPrimaryBoldText),
+                const SizedBox(height: 8),
+                RatingStars(
+                  value: ratingValue,
+                  onValueChanged: (v) {
+                    setState(() {
+                      ratingValue = v;
+                    });
+                  },
+                  starCount: 5,
+                  starSize: 24,
+                  maxValue: 5,
+                  starSpacing: 2,
+                  valueLabelVisibility: true,
+                  valueLabelTextStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12.0,
+                  ),
+                  starOffColor: const Color(0xffe7e8ea),
+                  starColor: Colors.yellow,
+                ),
+                const SizedBox(height: 20),
               ],
             ),
+          ),
+        ),
+        // Bottom Navigation with only "Chat" button
+        bottomNavigationBar: BottomAppBar(
+          color: kWhite,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Get.to(()=>UserChattingScreen());
+                  },
+                  child: Container(
+                    height: 60,
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Container(
+                        width: 200,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: kPinkColor, // Color for Chat button
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Center(child: Text("Chat", style: mediumTextWhiteBold)),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

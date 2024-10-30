@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 height: screenHeight * 0.4,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xff1D2A4D),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(100),
@@ -109,17 +109,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         String email = _emailController.text;
                         String password = _passwordController.text;
-                                              Get.to(()=>CustomerMainHomeScreen());
+                                              Get.to(()=>const CustomerMainHomeScreen());
 
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xffEE6315),
+                        backgroundColor: const Color(0xffEE6315),
                         padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Login",
                           style: TextStyle(fontSize: 18, color: Colors.white),
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           Get.to(() => SignUpScreen());
                         },
-                        child: Text(
+                        child: const Text(
                           "Don't have an account? Sign Up",
                           style: TextStyle(color: Color(0xff1D2A4D)),
                         ),

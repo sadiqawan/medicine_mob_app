@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/view/screen/home/home_screen.dart';
+import 'package:medicine_app/view/screen/navigation/navigation_screen.dart';
 import 'package:medicine_app/view/screen/onboarding/onboarding_screen.dart';
 
 
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 3),
-      () => Get.to(()=>const OnboardingScreen()));
+      () => Get.to(()=> NavigationScreen()));
   }
 
   @override
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Scaffold(
         
         body: Center(
-          child: Container(
+          child: SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: Image.asset(
