@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/styles_const.dart';
+import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
+import 'package:medicine_app/view/screen/customer/seller_detial_screen.dart';
 
 class CustomerMainHomeScreen extends StatefulWidget {
   const CustomerMainHomeScreen({super.key});
@@ -173,28 +176,34 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                   itemCount: medicineList.length,
                   itemBuilder: (context, index) {
                     final medicine = medicineList[index];
-                    return Container(
-                      width: screenWidth * 0.4,
-                      decoration: BoxDecoration(
-                        color: kWhite,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: Image.asset(
-                                medicine["imagePath"]!,
-                                height: screenHeight * 0.1,
-                                width: screenWidth * 0.2,
+                    return InkWell(
+                      onTap: (){
+
+                        Get.to(()=>MedicineDetailScreen());
+                      },
+                      child: Container(
+                        width: screenWidth * 0.4,
+                        decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(screenWidth * 0.02),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: Image.asset(
+                                  medicine["imagePath"]!,
+                                  height: screenHeight * 0.1,
+                                  width: screenWidth * 0.2,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: screenHeight * 0.02),
-                            Text(medicine["name"]!, style: smallTextBlack),
-                            Text(medicine["price"]!, style: mediumTextBlackBold),
-                          ],
+                              SizedBox(height: screenHeight * 0.02),
+                              Text(medicine["name"]!, style: smallTextBlack),
+                              Text(medicine["price"]!, style: mediumTextBlackBold),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -222,36 +231,41 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                   final seller = sellerList[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: screenHeight * 0.1,
-                          width: screenWidth * 0.15,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(
-                              seller["imagePath"]!,
-                              fit: BoxFit.cover,
+                    child: InkWell(
+                      onTap: (){
+                        Get.to(()=>SellerDetailsScreen());
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            height: screenHeight * 0.1,
+                            width: screenWidth * 0.15,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.asset(
+                                seller["imagePath"]!,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: screenWidth * 0.02),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(seller["name"]!, style: mediumPrimaryBoldText),
-                            SizedBox(height: screenHeight * 0.005),
-                            Text(seller["location"]!, style: smallTextGray),
-                          ],
-                        ),
-                        Spacer(),
-                        Column(
-                          children: [
-                            Icon(Icons.star, color: Colors.amber, size: screenWidth * 0.04),
-                            Text(seller["rating"]!, style: smallPrimaryBoldText),
-                          ],
-                        ),
-                      ],
+                          SizedBox(width: screenWidth * 0.02),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(seller["name"]!, style: mediumPrimaryBoldText),
+                              SizedBox(height: screenHeight * 0.005),
+                              Text(seller["location"]!, style: smallTextGray),
+                            ],
+                          ),
+                          Spacer(),
+                          Column(
+                            children: [
+                              Icon(Icons.star, color: Colors.amber, size: screenWidth * 0.04),
+                              Text(seller["rating"]!, style: smallPrimaryBoldText),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
