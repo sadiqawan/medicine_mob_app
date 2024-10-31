@@ -19,6 +19,7 @@ class _UserChattingScreenState extends State<UserChattingScreen> {
       child: Scaffold(
         backgroundColor: kWhite,
         appBar: AppBar(
+          
           backgroundColor: kWhite,
           title: Text("Dream for Life", style: mediumPrimaryBoldText),
           centerTitle: true,

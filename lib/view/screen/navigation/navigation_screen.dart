@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/controller/navigation_controller.dart';
-import 'package:medicine_app/view/screen/chat/chat_screen.dart';
+import 'package:medicine_app/view/screen/chat/chat_list_screen.dart';
 import 'package:medicine_app/view/screen/customer/customer_main_home_screen.dart';
 import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
 import 'package:medicine_app/view/screen/home/home_screen.dart';
@@ -16,8 +16,9 @@ class NavigationScreen extends StatelessWidget {
 
   final List<Widget> _pages = [
     CustomerMainHomeScreen(),
+    ChatListScreen(),
     MedicineDetailScreen(),
-    ChatScreen(),
+    
     ProfileScreen(),
   ];
 
