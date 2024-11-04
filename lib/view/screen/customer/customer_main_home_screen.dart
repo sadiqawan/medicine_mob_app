@@ -13,7 +13,7 @@ class CustomerMainHomeScreen extends StatefulWidget {
 }
 
 class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
-  // Dynamic data for medicines and sellers
+ 
   final List<Map<String, String>> medicineList = [
     {
       "name": "Panadol 600mg",
@@ -63,7 +63,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
       "rating": "4.3",
       "imagePath": "assets/images/sale_logo4.jpg"
     },
-    // Add more sellers as needed
+    
   ];
 
   @override

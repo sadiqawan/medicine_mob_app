@@ -144,8 +144,7 @@ class _ChatListScreenState extends State<ChatListScreen> with SingleTickerProvid
           subtitle: Text(chat["lastMessage"]!),
           trailing: Text(chat["time"]!),
           onTap: () {
-            // Navigate to chat detail screen
-            // Get.to(() => const ChatDetailScreen(chatId: chatId));
+            
           },
         );
       },

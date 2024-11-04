@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/const_string_text.dart';
 import 'package:medicine_app/constant/styles_const.dart';
+import 'package:medicine_app/view/components/buy_now_custom_btn.dart';
 
 class MedicineDetailScreen extends StatefulWidget {
   const MedicineDetailScreen({super.key});
@@ -113,22 +114,12 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
           color: kWhite,
           child: InkWell(
             onTap: (){
-              //this will move the user to screen where this products with different pharmacies
-            },
+   },
             child: Container(
               height: 60,
               color:Colors.transparent, 
               child: Center(
-                child: Container(
-                  width:334,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color:kPinkColor,
-                    borderRadius: BorderRadius.circular(100),
-            
-                  ),
-                  child: Center(child: Text("Buy Now",style: mediumTextWhiteBold,)),
-                )
+                child: BuyNowCustomBtn(myText: "Buy Now")
               ),
             ),
           ),
@@ -136,4 +127,5 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
       ),
     );
   }
+
 }

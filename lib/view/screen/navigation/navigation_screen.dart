@@ -9,6 +9,8 @@ import 'package:medicine_app/view/screen/home/home_screen.dart';
 import 'package:medicine_app/view/screen/profile/profile_screen.dart';
 import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 
+import '../customer/all_medicine_screen.dart';
+
 
 class NavigationScreen extends StatelessWidget {
   final NavigationController _navigationController =
@@ -17,7 +19,7 @@ class NavigationScreen extends StatelessWidget {
   final List<Widget> _pages = [
     CustomerMainHomeScreen(),
     ChatListScreen(),
-    MedicineDetailScreen(),
+    AllMedicineScreen(),
     
     ProfileScreen(),
   ];
