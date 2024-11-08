@@ -5,7 +5,7 @@ import 'package:medicine_app/constant/styles_const.dart';
 class BuyNowCustomBtn extends StatelessWidget {
   final String myText;
 
-  const BuyNowCustomBtn({required this.myText, Key? key}) : super(key: key);
+  const BuyNowCustomBtn({required this.myText, super.key});
 
   @override
   Widget build(BuildContext context) {

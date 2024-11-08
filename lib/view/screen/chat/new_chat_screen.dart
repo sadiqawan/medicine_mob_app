@@ -43,8 +43,8 @@ class _NewChatScreenState extends State<NewChatScreen> {
       child: Scaffold(
         appBar: AppBar(
           
-          actions: [Padding(
-            padding: const EdgeInsets.all(10.0),
+          actions: const [Padding(
+            padding: EdgeInsets.all(10.0),
             child: Icon(Icons.search,color: kWhite,),
           )],
           title: Text("New Chat", style: mediumTextWhiteBold),
@@ -66,7 +66,7 @@ class _NewChatScreenState extends State<NewChatScreen> {
               title: Text(user["name"]!),
               onTap: () {
                 // Navigate to UserChatScreen when tapped
-                Get.to(() => UserChattingScreen());
+                Get.to(() => const UserChattingScreen());
               },
             );
           },

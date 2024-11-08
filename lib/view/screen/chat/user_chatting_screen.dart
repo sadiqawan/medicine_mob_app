@@ -81,11 +81,11 @@ class _UserChattingScreenState extends State<UserChattingScreen> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: kPinkColor,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.send, color: Colors.white),
+                      child: const Icon(Icons.send, color: Colors.white),
                     ),
                   ),
                 ],

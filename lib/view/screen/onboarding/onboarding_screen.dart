@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/view/screen/auth/login/login_screen.dart';
-import 'package:medicine_app/view/screen/home/home_screen.dart';
 import 'package:medicine_app/view/screen/onboarding/screen_one.dart';
 import 'package:medicine_app/view/screen/onboarding/screen_two.dart';
 import 'package:medicine_app/view/screen/onboarding/screen_three.dart';

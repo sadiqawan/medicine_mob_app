@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_app/constant/color_const.dart';
+import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/view/components/profile_custom_icons.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -13,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         foregroundColor: kWhite,
         backgroundColor: kPrimaryColor, // Adjust color as needed
-        title: const Text('Favorite'),
+        title: Text('Profile',style: largeTextWhiteBold,),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -26,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
         
           Container(
             width: double.infinity,
-            color: kPrimaryColor, // Background color for the profile section
+            color: kPrimaryColor, 
             padding: EdgeInsets.symmetric(vertical: screenHeight * 0.04),
             child: Column(
               children: [
@@ -35,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: screenHeight * 0.06,
-                      backgroundImage: NetworkImage('https://via.placeholder.com/150'), // Replace with actual image URL
+                      backgroundImage: const AssetImage('assets/images/profile.png'),
                     ),
                     Positioned(
                       bottom: 0,
@@ -53,27 +56,17 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: screenHeight * 0.02),
-                const Text(
+                Text(
                   'Muhammad',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: mediumTextWhiteBold,
                 ),
-                const Text(
+                 Text(
                   '+123 567 89000',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
+                  style: smallTextWhiteBold,
                 ),
-                const Text(
+                 Text(
                   'muhd@example.com',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
+                  style: smallTextWhiteBold,
                 ),
               ],
             ),

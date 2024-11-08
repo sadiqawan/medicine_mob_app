@@ -118,7 +118,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
             child: Container(
               height: 60,
               color:Colors.transparent, 
-              child: Center(
+              child: const Center(
                 child: BuyNowCustomBtn(myText: "Buy Now")
               ),
             ),

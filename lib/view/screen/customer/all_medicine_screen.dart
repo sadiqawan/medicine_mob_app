@@ -82,7 +82,7 @@ class _AllMedicineScreenState extends State<AllMedicineScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Expanded( 
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -116,10 +116,10 @@ class _AllMedicineScreenState extends State<AllMedicineScreen> {
                             SizedBox(height: screenHeight * 0.02),
                             Text(medicine["name"]!, style: smallTextBlack),
                             Text(medicine["price"]!, style: mediumTextBlackBold),
-                            Spacer(),
+                            const Spacer(),
                             InkWell(
                               onTap: () => Get.to(() => const MedicineDetailScreen()),
-                              child: BuyNowCustomBtn(myText: "More Info"),
+                              child: const BuyNowCustomBtn(myText: "More Info"),
                             ),
                           ],
                         ),

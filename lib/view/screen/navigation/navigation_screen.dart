@@ -4,8 +4,7 @@ import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/controller/navigation_controller.dart';
 import 'package:medicine_app/view/screen/chat/chat_list_screen.dart';
 import 'package:medicine_app/view/screen/customer/customer_main_home_screen.dart';
-import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
-import 'package:medicine_app/view/screen/home/home_screen.dart';
+
 import 'package:medicine_app/view/screen/profile/profile_screen.dart';
 import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 
@@ -17,18 +16,20 @@ class NavigationScreen extends StatelessWidget {
       Get.put(NavigationController());
 
   final List<Widget> _pages = [
-    CustomerMainHomeScreen(),
-    ChatListScreen(),
-    AllMedicineScreen(),
+    const CustomerMainHomeScreen(),
+    const ChatListScreen(),
+    const AllMedicineScreen(),
     
     ProfileScreen(),
   ];
+
+   NavigationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _navigationController.pageController,
         onPageChanged: _navigationController.onPageChanged,
         children: _pages,
