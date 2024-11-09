@@ -10,7 +10,6 @@ import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 
 import '../customer/all_medicine_screen.dart';
 
-
 class NavigationScreen extends StatelessWidget {
   final NavigationController _navigationController =
       Get.put(NavigationController());
@@ -19,11 +18,10 @@ class NavigationScreen extends StatelessWidget {
     const CustomerMainHomeScreen(),
     const ChatListScreen(),
     const AllMedicineScreen(),
-    
-    ProfileScreen(),
+    const ProfileScreen(),
   ];
 
-   NavigationScreen({super.key});
+  NavigationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

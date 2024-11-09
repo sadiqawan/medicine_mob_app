@@ -17,12 +17,12 @@ class ProfileScreen extends StatelessWidget {
         foregroundColor: kWhite,
         backgroundColor: kPrimaryColor, // Adjust color as needed
         title: Text('Profile',style: largeTextWhiteBold,),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
       ),
       body: Column(
         children: [

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "987441341925",
+    "project_id": "barscannerapp",
+    "storage_bucket": "barscannerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987441341925:android:5bc0fafb916219b818bb0c",
+        "android_client_info": {
+          "package_name": "com.example.medicine_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTyIT3JaAdy2bOOJK6z5Rp2O9v2K0vq70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

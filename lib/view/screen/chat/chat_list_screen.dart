@@ -34,6 +34,7 @@ class _ChatListScreenState extends State<ChatListScreen> with SingleTickerProvid
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+
           foregroundColor: kWhite,
           backgroundColor: kPrimaryColor,
           title: Text("Chats",style: mediumTextWhiteBold,),
