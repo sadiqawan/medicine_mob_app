@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/styles_const.dart';
-import 'package:medicine_app/controller/sign_up_controller.dart';
+import 'package:medicine_app/controller/auth_controller/sign_up_controller.dart';
 import 'package:medicine_app/view/screen/auth/login/login_screen.dart';
 import 'package:medicine_app/view/screen/customer/customer_main_home_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
+  SignUpController signUpController = Get.put(SignUpController());
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final SignUpController _controller = Get.put(SignUpController());
+
+  // final SignUpController _controller = Get.put(SignUpController());
 
   SignUpScreen({super.key});
 
@@ -57,7 +60,7 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   Text("Sign up as:", style: mediumPrimaryText),
                   SizedBox(height: screenHeight * 0.02),
-                  Row(
+                  /* Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Obx(() => ChoiceChip(
@@ -79,6 +82,22 @@ class SignUpScreen extends StatelessWidget {
                         },
                       )),
                     ],
+                  ),*/
+                  // SizedBox(height: screenHeight * 0.03),
+                  Text("Name", style: mediumPrimaryText),
+                  // SizedBox(height: screenHeight * 0.01),
+                  TextField(
+                    controller: _name,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.5)),
+                      ),
+                      hintText: "Enter your name",
+                    ),
                   ),
                   SizedBox(height: screenHeight * 0.03),
                   Text("Email", style: mediumPrimaryText),
@@ -90,7 +109,8 @@ class SignUpScreen extends StatelessWidget {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.5)),
                       ),
                       hintText: "Enter your email",
                     ),
@@ -106,35 +126,52 @@ class SignUpScreen extends StatelessWidget {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.5)),
                       ),
                       hintText: "Enter your password",
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.03),
-                  ElevatedButton(
-                    onPressed: () {
-                      String email = _emailController.text;
+                 Obx(()=>  signUpController.isLoading.value
+                     ? const Center(
+                     child: CircularProgressIndicator(
+                       color: Colors.black,
+                     ))
+                     :   ElevatedButton(
+                   onPressed: () {
+                     if (signUpController.isValidInputs(
+                         _name, _emailController, _passwordController)) {
+                       signUpController.signup(
+                           _emailController, _passwordController, _name);
+                     }
+                     /*
+                      signUpController.signup(
+                          _emailController, _passwordController, _name);*/
+                     /*  String email = _emailController.text;
                       String password = _passwordController.text;
-                      String userType = _controller.userType.value;
-                      Get.to(()=>const CustomerMainHomeScreen());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffEE6315),
-                      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
-                    ),
-                  ),
+                      String userType = _controller.userType.value;*/
+                     // Get.to(() => const CustomerMainHomeScreen());
+                   },
+                   style: ElevatedButton.styleFrom(
+                     backgroundColor: const Color(0xffEE6315),
+                     padding:
+                     EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                     shape: RoundedRectangleBorder(
+                       borderRadius: BorderRadius.circular(100),
+                     ),
+                   ),
+                   child: const Center(
+                     child: Text("Sign Up",
+                         style: TextStyle(fontSize: 18, color: Colors.white)),
+                   ),
+                 ),),
+
                   SizedBox(height: screenHeight * 0.02),
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Get.to(() => const LoginScreen());
+                        Navigator.pop(context);
                       },
                       child: const Text(
                         "Already have an account? Login",
@@ -142,7 +179,8 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02), // Additional space at the bottom
+                  SizedBox(height: screenHeight * 0.02),
+                  // Additional space at the bottom
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/styles_const.dart';
+import 'package:medicine_app/controller/auth_controller/login_contorller.dart';
 import 'package:medicine_app/view/screen/auth/registration/sign_up_screen.dart';
 import 'package:medicine_app/view/screen/customer/customer_main_home_screen.dart';
 
@@ -12,15 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
+  LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     TextField(
-                      controller: _emailController,
+                      controller: loginController.emailController,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                          borderSide:
+                              BorderSide(color: Colors.grey.withOpacity(0.5)),
                         ),
                         hintText: "Enter your email",
                       ),
@@ -92,39 +86,49 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     TextField(
-                      controller: _passwordController,
+                      controller: loginController.passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                          borderSide:
+                              BorderSide(color: Colors.grey.withOpacity(0.5)),
                         ),
                         hintText: "Enter your password",
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.03),
-                    ElevatedButton(
-                      onPressed: () {
-                        String email = _emailController.text;
-                        String password = _passwordController.text;
-                                              Get.to(()=>const CustomerMainHomeScreen());
-
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xffEE6315),
-                        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
+                    Obx(
+                      () => loginController.isLoading.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                              color: Colors.black,
+                            ))
+                          : ElevatedButton(
+                              onPressed: () {
+                                loginController.login();
+                                // String email = _emailController.text;
+                                // String password = _passwordController.text;
+                                //                       Get.to(()=>const CustomerMainHomeScreen());
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xffEE6315),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: screenHeight * 0.02),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                              ),
+                            ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     Center(
