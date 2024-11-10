@@ -5,8 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/styles_const.dart';
-import 'package:medicine_app/controller/profile_controller.dart';
+import 'package:medicine_app/controller/profile_controller/profile_controller.dart';
 import 'package:medicine_app/view/components/profile_custom_icons.dart';
+import 'package:medicine_app/view/screen/profile/add_pharmacy_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -257,9 +258,15 @@ class ProfileScreen extends StatelessWidget {
               padding: EdgeInsets.all(screenWidth * 0.04),
               children: [
                 ProfileCustomIcons(
-                    Icons.privacy_tip, 'Privacy Policy', context, () {}),
+                    Icons.local_pharmacy_outlined, 'Add Pharmacy', context, () {
+                  Get.to(const AddPharmacyScreen());
+                }),
+                ProfileCustomIcons(Icons.local_pharmacy_outlined,
+                    'Add Medicine', context, () {}),
                 ProfileCustomIcons(Icons.settings, 'Settings', context, () {}),
                 ProfileCustomIcons(Icons.help, 'Help', context, () {}),
+                ProfileCustomIcons(
+                    Icons.privacy_tip, 'Privacy Policy', context, () {}),
                 ProfileCustomIcons(Icons.logout, 'Logout', context, () {
                   Get.dialog(
                     AlertDialog(
@@ -285,7 +292,7 @@ class ProfileScreen extends StatelessWidget {
                           onPressed: () {
                             profileController.logout();
                           },
-                          child: Text(
+                          child: const Text(
                             'Logout',
                             style: TextStyle(color: Colors.red, fontSize: 14),
                           ),

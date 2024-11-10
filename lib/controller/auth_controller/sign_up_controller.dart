@@ -60,6 +60,7 @@ class SignUpController extends GetxController {
         'name': nameController.text.trim(),
         'email': emailController.text.trim(),
         'picture': null,
+        'pharmacy': null,
       });
 
       Get.snackbar(

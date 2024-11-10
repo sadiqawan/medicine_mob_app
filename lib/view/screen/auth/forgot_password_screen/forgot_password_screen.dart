@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/controller/auth_controller/login_contorller.dart';
-import 'package:medicine_app/view/screen/auth/forgot_password_screen/forgot_password_screen.dart';
-import 'package:medicine_app/view/screen/auth/registration/sign_up_screen.dart';
-import 'package:medicine_app/view/screen/customer/customer_main_home_screen.dart';
+import 'package:medicine_app/view/screen/auth/login/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   LoginController loginController = Get.put(LoginController());
 
   @override
@@ -49,10 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: screenWidth * 0.2,
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    Text(
-                      "Login",
-                      style: extraLargePrimaryText,
-                    ),
                   ],
                 ),
               ),
@@ -68,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     TextField(
-                      controller: loginController.emailController,
+                      controller: loginController.forgetController,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -81,25 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    Text(
-                      "Password",
-                      style: mediumPrimaryText,
-                    ),
-                    SizedBox(height: screenHeight * 0.01),
-                    TextField(
-                      controller: loginController.passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                              BorderSide(color: Colors.grey.withOpacity(0.5)),
-                        ),
-                        hintText: "Enter your password",
-                      ),
-                    ),
                     SizedBox(height: screenHeight * 0.03),
                     Obx(
                       () => loginController.isLoading.value
@@ -109,10 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ))
                           : ElevatedButton(
                               onPressed: () {
-                                loginController.login();
-                                // String email = _emailController.text;
-                                // String password = _passwordController.text;
-                                //                       Get.to(()=>const CustomerMainHomeScreen());
+                                loginController.sendPasswordResetEmail();
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xffEE6315),
@@ -124,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: const Center(
                                 child: Text(
-                                  "Login",
+                                  "Submit",
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white),
                                 ),
@@ -135,22 +107,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     Center(
                       child: TextButton(
                         onPressed: () {
-                          Get.to(() => const ForgotPasswordScreen());
+                          Get.offAll(() => const LoginScreen());
                         },
                         child: const Text(
-                          "Forgot Password",
-                          style: TextStyle(color: Color(0xff1D2A4D)),
-                        ),
-                      ),
-                    ),
-                   const SizedBox(height: 10,),
-                    Center(
-                      child: TextButton(
-                        onPressed: () {
-                          Get.to(() => SignUpScreen());
-                        },
-                        child: const Text(
-                          "Don't have an account? Sign Up",
+                          "Back to Login",
                           style: TextStyle(color: Color(0xff1D2A4D)),
                         ),
                       ),

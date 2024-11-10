@@ -119,7 +119,7 @@ class _AllMedicineScreenState extends State<AllMedicineScreen> {
                             const Spacer(),
                             InkWell(
                               onTap: () => Get.to(() => const MedicineDetailScreen()),
-                              child: const BuyNowCustomBtn(myText: "More Info"),
+                              child: BuyNowCustomBtn(myText: "More Info", onTap: () {  } , ),
                             ),
                           ],
                         ),

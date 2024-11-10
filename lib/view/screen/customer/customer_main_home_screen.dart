@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/styles_const.dart';
-import 'package:medicine_app/controller/profile_controller.dart';
+import 'package:medicine_app/controller/profile_controller/profile_controller.dart';
 import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
 import 'package:medicine_app/view/screen/customer/seller_detial_screen.dart';
 
