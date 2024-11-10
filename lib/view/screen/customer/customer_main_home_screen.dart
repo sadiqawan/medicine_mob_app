@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/styles_const.dart';
+import 'package:medicine_app/controller/profile_controller.dart';
 import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
 import 'package:medicine_app/view/screen/customer/seller_detial_screen.dart';
 
@@ -13,7 +14,8 @@ class CustomerMainHomeScreen extends StatefulWidget {
 }
 
 class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
- 
+  ProfileController profileController = Get.put(ProfileController());
+
   final List<Map<String, String>> medicineList = [
     {
       "name": "Panadol 600mg",
@@ -35,7 +37,6 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
       "price": "600 PKR",
       "imagePath": "assets/images/medicine4.png"
     },
-  
   ];
 
   final List<Map<String, String>> sellerList = [
@@ -63,7 +64,6 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
       "rating": "4.3",
       "imagePath": "assets/images/sale_logo4.jpg"
     },
-    
   ];
 
   @override
@@ -93,12 +93,53 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                       children: [
                         CircleAvatar(
                           radius: screenWidth * 0.06,
-                          backgroundImage: const AssetImage("assets/images/profile.png"),
+                          backgroundImage:
+                              const AssetImage("assets/images/profile.png"),
                         ),
-                        Icon(
-                          Icons.logout_rounded,
-                          size: screenWidth * 0.08,
-                          color: kWhite,
+                        InkWell(
+                          onTap: () {
+                            Get.dialog(
+                              AlertDialog(
+                                backgroundColor: Colors.black,
+                                // Set the background color of the dialog
+                                title: const Text(
+                                  'Logout Confirmation',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                ),
+                                content: const Text(
+                                  'Are you sure you want to log out?',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Get.back(),
+                                    child: const Text(
+                                      'Cancel',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      profileController.logout();
+                                    },
+                                    child: Text(
+                                      'Logout',
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 14),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.logout_rounded,
+                            size: screenWidth * 0.08,
+                            color: kWhite,
+                          ),
                         )
                       ],
                     ),
@@ -177,9 +218,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                   itemBuilder: (context, index) {
                     final medicine = medicineList[index];
                     return InkWell(
-                      onTap: (){
-
-                        Get.to(()=>const MedicineDetailScreen());
+                      onTap: () {
+                        Get.to(() => const MedicineDetailScreen());
                       },
                       child: Container(
                         width: screenWidth * 0.4,
@@ -201,7 +241,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                               ),
                               SizedBox(height: screenHeight * 0.02),
                               Text(medicine["name"]!, style: smallTextBlack),
-                              Text(medicine["price"]!, style: mediumTextBlackBold),
+                              Text(medicine["price"]!,
+                                  style: mediumTextBlackBold),
                             ],
                           ),
                         ),
@@ -230,10 +271,11 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                 itemBuilder: (context, index) {
                   final seller = sellerList[index];
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                    padding:
+                        EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                     child: InkWell(
-                      onTap: (){
-                        Get.to(()=>const SellerDetailScreen());
+                      onTap: () {
+                        Get.to(() => const SellerDetailScreen());
                       },
                       child: Row(
                         children: [
@@ -252,7 +294,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(seller["name"]!, style: mediumPrimaryBoldText),
+                              Text(seller["name"]!,
+                                  style: mediumPrimaryBoldText),
                               SizedBox(height: screenHeight * 0.005),
                               Text(seller["location"]!, style: smallTextGray),
                             ],
@@ -260,8 +303,11 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                           const Spacer(),
                           Column(
                             children: [
-                              Icon(Icons.star, color: Colors.amber, size: screenWidth * 0.04),
-                              Text(seller["rating"]!, style: smallPrimaryBoldText),
+                              Icon(Icons.star,
+                                  color: Colors.amber,
+                                  size: screenWidth * 0.04),
+                              Text(seller["rating"]!,
+                                  style: smallPrimaryBoldText),
                             ],
                           ),
                         ],
