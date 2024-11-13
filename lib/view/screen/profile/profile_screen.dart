@@ -7,6 +7,7 @@ import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/controller/profile_controller/profile_controller.dart';
 import 'package:medicine_app/view/components/profile_custom_icons.dart';
+import 'package:medicine_app/view/screen/profile/add_medicine_screen.dart';
 import 'package:medicine_app/view/screen/profile/add_pharmacy_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -261,8 +262,10 @@ class ProfileScreen extends StatelessWidget {
                     Icons.local_pharmacy_outlined, 'Add Pharmacy', context, () {
                   Get.to(const AddPharmacyScreen());
                 }),
-                ProfileCustomIcons(Icons.local_pharmacy_outlined,
-                    'Add Medicine', context, () {}),
+                ProfileCustomIcons(
+                    Icons.local_pharmacy_outlined, 'Add Medicine', context, () {
+                  Get.to(const AddMedicineScreen());
+                }),
                 ProfileCustomIcons(Icons.settings, 'Settings', context, () {}),
                 ProfileCustomIcons(Icons.help, 'Help', context, () {}),
                 ProfileCustomIcons(

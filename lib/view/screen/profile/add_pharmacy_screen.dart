@@ -30,15 +30,12 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child:StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           stream: controller.getUserDataStream(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -67,13 +64,13 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
                         radius: screenHeight * 0.06,
                         child: controller.pharmacyImageFile == null
                             ? const Icon(
-                          Icons.local_pharmacy_outlined,
-                          size: 30,
-                        )
+                                Icons.local_pharmacy_outlined,
+                                size: 30,
+                              )
                             : Image.file(
-                          controller.pharmacyImageFile!,
-                          fit: BoxFit.cover, // Optional: fills the circle
-                        ),
+                                controller.pharmacyImageFile!,
+                                fit: BoxFit.cover, // Optional: fills the circle
+                              ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -95,14 +92,19 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
                                       ),
                                       const SizedBox(height: 10),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           ElevatedButton(
                                             onPressed: () async {
                                               // Pick image from camera
-                                              final pickedFile = await controller.pickImageFromSource(ImageSource.camera);
+                                              final pickedFile =
+                                                  await controller
+                                                      .pickImageFromSource(
+                                                          ImageSource.camera);
                                               if (pickedFile != null) {
-                                                controller.pharmacyImageFile = pickedFile;
+                                                controller.pharmacyImageFile =
+                                                    pickedFile;
                                               }
                                               Get.back();
                                             },
@@ -111,13 +113,18 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
                                           ElevatedButton(
                                             onPressed: () async {
                                               // Pick image from gallery
-                                              final pickedFile = await controller.pickImageFromSource(ImageSource.gallery);
+                                              final pickedFile =
+                                                  await controller
+                                                      .pickImageFromSource(
+                                                          ImageSource.gallery);
                                               if (pickedFile != null) {
-                                                controller.pharmacyImageFile = pickedFile;
+                                                controller.pharmacyImageFile =
+                                                    pickedFile;
                                               }
                                               Get.back();
                                             },
-                                            child: const Icon(Icons.photo_camera_back),
+                                            child: const Icon(
+                                                Icons.photo_camera_back),
                                           ),
                                         ],
                                       ),
@@ -148,7 +155,8 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.5)),
                       ),
                       hintText: "Enter Pharmacy Name",
                     ),
@@ -162,7 +170,8 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.5)),
                       ),
                       hintText: "Enter your contact",
                     ),
@@ -175,41 +184,60 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.5)),
                       ),
                       hintText: "Enter Pharmacy Address",
                     ),
                   ),
                   const Spacer(),
-                  BuyNowCustomBtn(
-                    myText: 'Register Now',
-                    onTap: () {
-                      try {
-                        print('click');
-                        controller.registerPharmacyWithImage(
-                          pharmaNameController.text.trim(),
-                          contactNoController.text.trim(),
-                          addressController.text.trim(),
-                        );
-                      } catch (e) {
-                        print(e.toString());
-                      }
-                    },
-                  ),
+                  Obx(
+                    () => controller.addPharmacyIsLoading.value
+                        ? BuyNowCustomBtn(
+                            myText: 'Register Now',
+                            onTap: () {
+                              try {
+                                print('click');
+                                if (pharmaNameController.text.isEmpty ||
+                                    contactNoController.text.isEmpty ||
+                                    addressController.text.isEmpty) {
+                                  Get.snackbar(
+                                      'Failed', 'Please fill the required',
+                                      backgroundColor:
+                                          Colors.red.withOpacity(.3));
+                                } else {
+                                  controller.registerPharmacyWithImage(
+                                    pharmaNameController.text.trim(),
+                                    contactNoController.text.trim(),
+                                    addressController.text.trim(),
+                                  );
+                                }
+                              } catch (e) {
+                                print(e.toString());
+                              }
+                            },
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.black,
+                            ),
+                          ),
+                  )
                 ],
               );
             } else {
               // Show the thank you message if `pharmacy` is not null
               return Center(
-                child: Text(
-                  'Thank you! Your pharmacy has already been registered.',
-                  style: smallPrimaryBoldItalicText,
+                child: Flexible(
+                  child: Text(
+                    'Thank you! Your pharmacy has been already registered.',
+                    style: largePrimaryBoldText,
+                  ),
                 ),
               );
             }
           },
         ),
-
       ),
     );
   }
