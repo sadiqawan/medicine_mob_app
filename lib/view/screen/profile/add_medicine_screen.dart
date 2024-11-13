@@ -337,49 +337,37 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.05),
-                Obx(
-                  () =>
-                  controller.addMedicineIsLoading.value
-                      ?BuyNowCustomBtn(
-                    myText: 'Upload Now',
-                    onTap: () {
-                      try {
-                        print('click');
-                        if (productDetails.text.isEmpty ||
-                            productDosage.text.isEmpty ||
-                            productFormula.text.isEmpty ||
-                            productIngredient.text.isEmpty ||
-                            productName.text.isEmpty ||
-                            productPrecaution.text.isEmpty ||
-                            productSideEffects.text.isEmpty ||
-                            productUsage.text.isEmpty ||
-                            contactNo.text.isEmpty) {
-                          Get.snackbar('Failed', 'Please fill the required',
-                              backgroundColor: Colors.red.withOpacity(.3));
-                        } else {
-                          controller.medicineRegistration(
-                            productDetails.text.trim(),
-                            productDosage.text.trim(),
-                            productFormula.text.trim(),
-                            productIngredient.text.trim(),
-                            productName.text.trim(),
-                            productPrecaution.text.trim(),
-                            productSideEffects.text.trim(),
-                            productUsage.text.trim(),
-                            contactNo.text.trim(),
-                          );
-                        }
-                      } catch (e) {
-                        print(e.toString());
-                      }
-                    },
-                  ) :const Center(
-                          child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ))
-
-
-                )
+                Obx(() => controller.addMedicineIsLoading.value
+                    ? const Center(child: CircularProgressIndicator(color: Colors.black))
+                    : BuyNowCustomBtn(
+                  myText: 'Upload Now',
+                  onTap: () {
+                    if (productDetails.text.isEmpty ||
+                        productDosage.text.isEmpty ||
+                        productFormula.text.isEmpty ||
+                        productIngredient.text.isEmpty ||
+                        productName.text.isEmpty ||
+                        productPrecaution.text.isEmpty ||
+                        productSideEffects.text.isEmpty ||
+                        productUsage.text.isEmpty ||
+                        contactNo.text.isEmpty) {
+                      Get.snackbar('Failed', 'Please fill in the required fields',
+                          backgroundColor: Colors.red.withOpacity(0.3));
+                    } else {
+                      controller.medicineRegistration(
+                        productDetails.text.trim(),
+                        productDosage.text.trim(),
+                        productFormula.text.trim(),
+                        productIngredient.text.trim(),
+                        productName.text.trim(),
+                        productPrecaution.text.trim(),
+                        productSideEffects.text.trim(),
+                        productUsage.text.trim(),
+                        contactNo.text.trim(),
+                      );
+                    }
+                  },
+                ))
               ],
             ),
           ),

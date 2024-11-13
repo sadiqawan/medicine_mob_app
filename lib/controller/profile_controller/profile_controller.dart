@@ -101,11 +101,12 @@ class ProfileController extends GetxController {
     return null;
   }
 
+// Pharmacy registration method with loading indicator and snackbar notifications
   Future<void> registerPharmacyWithImage(
-    String pharmacyName,
-    String phoneNo,
-    String address,
-  ) async {
+      String pharmacyName,
+      String phoneNo,
+      String address,
+      ) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       Get.snackbar('Error', 'User is not authenticated',
@@ -113,15 +114,17 @@ class ProfileController extends GetxController {
       return;
     }
 
+    // Start loading
+    addPharmacyIsLoading.value = true;
+
     try {
-      addPharmacyIsLoading.value = false;
       // Step 1: Update the pharmacy name in the user's collection
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
           .update({'pharmacy': pharmacyName});
 
-      // Step 2: Register the pharmacy in the public collection
+      // Prepare pharmacy data
       final pharmacyData = {
         'pharmacyName': pharmacyName,
         'phoneNo': phoneNo,
@@ -129,41 +132,38 @@ class ProfileController extends GetxController {
         'pharmacyImage': null,
       };
 
-      // Step 3: If an image source is provided, pick and upload the image
+      // Step 2: If an image is provided, upload it
       if (pharmacyImageFile != null) {
-        final storageRef = FirebaseStorage.instance.ref().child('$userId.jpg');
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('pharmacyImages')
+            .child('$userId.jpg');
         await storageRef.putFile(pharmacyImageFile!);
         final imageUrl = await storageRef.getDownloadURL();
         pharmacyData['pharmacyImage'] = imageUrl;
       }
-      Get.snackbar("Success", "Pharmacy has been registered successfully",
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.green);
-      Get.back();
 
-      // Step 4: Save pharmacy data in Firestore
+      // Step 3: Save pharmacy data in the public Firestore collection
       await FirebaseFirestore.instance
           .collection('pharmacies')
           .doc(userId)
           .set(pharmacyData);
+
+      // Show success message
+      Get.snackbar("Success", "Pharmacy has been registered successfully",
+          snackPosition: SnackPosition.TOP, backgroundColor: Colors.green);
+
     } on FirebaseException catch (e) {
-      if (e.code == 'unauthorized') {
-        addPharmacyIsLoading.value = false;
-        Get.snackbar('Error', 'You are not authorized to perform this action',
-            snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      } else {
-        addPharmacyIsLoading.value = false;
-        Get.snackbar('Error', 'Error: ${e.message}',
-            snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      }
-      print("Firebase Exception: $e");
+      Get.snackbar('Error', 'Firebase Error: ${e.message}',
+          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
     } catch (e) {
-      addPharmacyIsLoading.value = false;
       Get.snackbar('Error', 'Error: $e',
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      print("Error registering pharmacy: $e");
+    } finally {
+      // Stop loading
+      addPharmacyIsLoading.value = false;
     }
   }
-
   /* // Function to pick an image from the source and upload it
   Future<void> pickImageFromForPharmacy(ImageSource source) async {
     try {
@@ -249,19 +249,18 @@ class ProfileController extends GetxController {
     return null;
   }
 
-  // Registration of the Medicine
+// Medicine registration method with loading indicator and snackbar notifications
   Future<void> medicineRegistration(
-    String productDetails,
-    String productDosage,
-    String productFormula,
-    String productIngredient,
-    String productName,
-    String productPrecaution,
-    String productSideEffects,
-    String productUsage,
-    String contactNo,
-    // Pass the image file as a parameter
-  ) async {
+      String productDetails,
+      String productDosage,
+      String productFormula,
+      String productIngredient,
+      String productName,
+      String productPrecaution,
+      String productSideEffects,
+      String productUsage,
+      String contactNo,
+      ) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
 
     if (userId == null) {
@@ -269,6 +268,9 @@ class ProfileController extends GetxController {
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
       return;
     }
+
+    // Set loading to true before starting
+    addMedicineIsLoading.value = true;
 
     try {
       // Medicine data to store in Firestore
@@ -281,7 +283,7 @@ class ProfileController extends GetxController {
         'productPrecaution': productPrecaution,
         'productSideEffects': productSideEffects,
         'productUsage': productUsage,
-        'productImage': medicineImageFile,
+        'productImage': null,
         'contactNo': contactNo,
       };
 
@@ -297,37 +299,32 @@ class ProfileController extends GetxController {
         medicineData['productImage'] = imageUrl;
       }
 
-      // Step 2: Save the medicine data in Firestore
+      // Step 2: Save the medicine data in the user's Firestore collection
       await FirebaseFirestore.instance
-          .collection('user')
+          .collection('users')
           .doc(userId)
           .collection('pharmacyMed')
           .add(medicineData);
-      // Step 3:  also for public collectionSave the medicine data in Firestore
-      await FirebaseFirestore.instance
-          .collection('pharmacy')
-          .doc()
-          .set(medicineData);
-      addMedicineIsLoading.value = false;
 
+      // Step 3: Save the medicine data in a public Firestore collection
+      await FirebaseFirestore.instance.collection('medicines').add(medicineData);
+
+      // Show success message after completion
       Get.snackbar("Success", "Medicine has been registered successfully",
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.green);
-      Get.back();
+
     } on FirebaseException catch (e) {
-      addMedicineIsLoading.value = false;
-      Get.back();
-
-      Get.snackbar('Error', 'Error: ${e.message}',
+      Get.snackbar('Error', 'Firebase Error: ${e.message}',
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      print("Firebase Exception: $e");
     } catch (e) {
-      addMedicineIsLoading.value = false;
-      Get.back();
-
       Get.snackbar('Error', 'Error: $e',
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      print("Error registering medicine: $e");
+    } finally {
+      // Set loading to false once done
+      addMedicineIsLoading.value = false;
     }
+  }
+
   }
 
 /*  // Medicine adding to pharmacy of current user.
@@ -362,4 +359,4 @@ class ProfileController extends GetxController {
       'contactNo': ''
     });
   }*/
-}
+

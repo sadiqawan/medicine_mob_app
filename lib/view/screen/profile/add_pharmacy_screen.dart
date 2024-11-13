@@ -191,38 +191,28 @@ class _AddPharmacyScreenState extends State<AddPharmacyScreen> {
                     ),
                   ),
                   const Spacer(),
-                  Obx(
-                    () => controller.addPharmacyIsLoading.value
-                        ? BuyNowCustomBtn(
-                            myText: 'Register Now',
-                            onTap: () {
-                              try {
-                                print('click');
-                                if (pharmaNameController.text.isEmpty ||
-                                    contactNoController.text.isEmpty ||
-                                    addressController.text.isEmpty) {
-                                  Get.snackbar(
-                                      'Failed', 'Please fill the required',
-                                      backgroundColor:
-                                          Colors.red.withOpacity(.3));
-                                } else {
-                                  controller.registerPharmacyWithImage(
-                                    pharmaNameController.text.trim(),
-                                    contactNoController.text.trim(),
-                                    addressController.text.trim(),
-                                  );
-                                }
-                              } catch (e) {
-                                print(e.toString());
-                              }
-                            },
-                          )
-                        : const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.black,
-                            ),
-                          ),
-                  )
+                  // UI with loading indicator
+                  Obx(() => controller.addPharmacyIsLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(color: Colors.black))
+                      : BuyNowCustomBtn(
+                          myText: 'Register Now',
+                          onTap: () {
+                            if (pharmaNameController.text.isEmpty ||
+                                contactNoController.text.isEmpty ||
+                                addressController.text.isEmpty) {
+                              Get.snackbar('Failed',
+                                  'Please fill in the required fields',
+                                  backgroundColor: Colors.red.withOpacity(0.3));
+                            } else {
+                              controller.registerPharmacyWithImage(
+                                pharmaNameController.text.trim(),
+                                contactNoController.text.trim(),
+                                addressController.text.trim(),
+                              );
+                            }
+                          },
+                        ))
                 ],
               );
             } else {
