@@ -338,36 +338,41 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.05),
                 Obx(() => controller.addMedicineIsLoading.value
-                    ? const Center(child: CircularProgressIndicator(color: Colors.black))
+                    ? const Center(
+                        child: CircularProgressIndicator(color: Colors.black),
+                      )
                     : BuyNowCustomBtn(
-                  myText: 'Upload Now',
-                  onTap: () {
-                    if (productDetails.text.isEmpty ||
-                        productDosage.text.isEmpty ||
-                        productFormula.text.isEmpty ||
-                        productIngredient.text.isEmpty ||
-                        productName.text.isEmpty ||
-                        productPrecaution.text.isEmpty ||
-                        productSideEffects.text.isEmpty ||
-                        productUsage.text.isEmpty ||
-                        contactNo.text.isEmpty) {
-                      Get.snackbar('Failed', 'Please fill in the required fields',
-                          backgroundColor: Colors.red.withOpacity(0.3));
-                    } else {
-                      controller.medicineRegistration(
-                        productDetails.text.trim(),
-                        productDosage.text.trim(),
-                        productFormula.text.trim(),
-                        productIngredient.text.trim(),
-                        productName.text.trim(),
-                        productPrecaution.text.trim(),
-                        productSideEffects.text.trim(),
-                        productUsage.text.trim(),
-                        contactNo.text.trim(),
-                      );
-                    }
-                  },
-                ))
+                        myText: 'Upload Now',
+                        onTap: () {
+                          if (productDetails.text.isEmpty ||
+                              productDosage.text.isEmpty ||
+                              productFormula.text.isEmpty ||
+                              productIngredient.text.isEmpty ||
+                              productName.text.isEmpty ||
+                              productPrecaution.text.isEmpty ||
+                              productSideEffects.text.isEmpty ||
+                              productUsage.text.isEmpty ||
+                              contactNo.text.isEmpty ||
+                          controller.medicineImageFile==null
+                          ) {
+                            Get.snackbar(
+                                'Failed', 'Please fill in the required fields',
+                                backgroundColor: Colors.red.withOpacity(0.3));
+                          } else {
+                            controller.medicineRegistration(
+                                productDetails.text.trim(),
+                                productDosage.text.trim(),
+                                productFormula.text.trim(),
+                                productIngredient.text.trim(),
+                                productName.text.trim(),
+                                productPrecaution.text.trim(),
+                                productSideEffects.text.trim(),
+                                productUsage.text.trim(),
+                                contactNo.text.trim(),
+                                context);
+                          }
+                        },
+                      ))
               ],
             ),
           ),

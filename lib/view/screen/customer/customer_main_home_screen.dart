@@ -6,6 +6,8 @@ import 'package:medicine_app/controller/profile_controller/profile_controller.da
 import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
 import 'package:medicine_app/view/screen/customer/seller_detial_screen.dart';
 
+import '../../../controller/customer_main_home_screen_controller/customer_main_controller.dart';
+
 class CustomerMainHomeScreen extends StatefulWidget {
   const CustomerMainHomeScreen({super.key});
 
@@ -14,7 +16,8 @@ class CustomerMainHomeScreen extends StatefulWidget {
 }
 
 class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
-  ProfileController profileController = Get.put(ProfileController());
+  CustomerMainController customerMainController =
+      Get.put(CustomerMainController());
 
   final List<Map<String, String>> medicineList = [
     {
@@ -91,56 +94,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CircleAvatar(
-                          radius: screenWidth * 0.06,
-                          backgroundImage:
-                              const AssetImage("assets/images/profile.png"),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Get.dialog(
-                              AlertDialog(
-                                backgroundColor: Colors.black,
-                                // Set the background color of the dialog
-                                title: const Text(
-                                  'Logout Confirmation',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 14),
-                                ),
-                                content: const Text(
-                                  'Are you sure you want to log out?',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 14),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Get.back(),
-                                    child: const Text(
-                                      'Cancel',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 14),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      profileController.logout();
-                                    },
-                                    child: Text(
-                                      'Logout',
-                                      style: TextStyle(
-                                          color: Colors.red, fontSize: 14),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          child: Icon(
-                            Icons.logout_rounded,
-                            size: screenWidth * 0.08,
-                            color: kWhite,
-                          ),
-                        )
+                        userImage(context),
+                        logoutConformation(context)
                       ],
                     ),
                     Positioned(
@@ -150,10 +105,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Hi! Muhammad",
-                            style: largeTextWhiteBold,
-                          ),
+                          userName(),
                           Text(
                             "Welcome To Medicine App",
                             style: mediumTextWhite,
@@ -259,7 +211,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Top Seller", style: largePrimaryBoldText),
-                  Text("See All", style: mediumPrimaryBoldText),
+                  Text("See All", style: largePrimaryBoldText),
                 ],
               ),
             ),
@@ -322,4 +274,118 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
       ),
     );
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Widget logoutConformation(BuildContext context) {
+  ProfileController profileController = Get.put(ProfileController());
+  final screenWidth = MediaQuery.of(context).size.width;
+
+  return InkWell(
+    onTap: () {
+      Get.dialog(
+        AlertDialog(
+          backgroundColor: Colors.black,
+          // Set the background color of the dialog
+          title: const Text(
+            'Logout Confirmation',
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          content: const Text(
+            'Are you sure you want to log out?',
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                profileController.logout();
+              },
+              child: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.red, fontSize: 14),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+    child: Icon(
+      Icons.logout_rounded,
+      size: screenWidth * 0.08,
+      color: kWhite,
+    ),
+  );
+}
+
+Widget userImage(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+
+  ProfileController controller = Get.put(ProfileController());
+  return StreamBuilder(
+      stream: controller.getUserDataStream(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircleAvatar(
+            radius: screenWidth * 0.06,
+            backgroundImage: const AssetImage("assets/images/profile.png"),
+          );
+        }
+        var userData = snapshot.data?.data();
+        if (userData == null || userData['picture'] == null) {
+          return CircleAvatar(
+            radius: screenWidth * 0.06,
+            backgroundImage: const AssetImage("assets/images/profile.png"),
+          );
+        } else {
+          return CircleAvatar(
+            radius: screenWidth * 0.06,
+            backgroundImage: NetworkImage(userData!['picture']),
+          );
+        }
+      });
+}
+
+Widget userName() {
+  ProfileController controller = Get.put(ProfileController());
+  return StreamBuilder(
+      stream: controller.getUserDataStream(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text(
+            "Hi! loading...",
+            style: largeTextWhiteBold,
+          );
+        }
+        var userData = snapshot.data?.data();
+        if (userData == null || userData['name'] == null) {
+          return Text(
+            "Hi! loading...",
+            style: largeTextWhiteBold,
+          );
+        } else {
+          return Text(
+            "Hi! ${userData['name']}",
+            style: largeTextWhiteBold,
+          );
+        }
+      });
 }

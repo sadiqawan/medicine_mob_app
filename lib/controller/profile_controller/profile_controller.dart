@@ -19,7 +19,7 @@ class ProfileController extends GetxController {
     return FirebaseFirestore.instance.collection('users').doc(uId).snapshots();
   }
 
-  var addPharmacyIsLoading = true.obs;
+  var addPharmacyIsLoading = false.obs;
 
   // Function to pick an image from the source and upload it
   Future<void> pickImageFrom(ImageSource source) async {
@@ -106,6 +106,7 @@ class ProfileController extends GetxController {
       String pharmacyName,
       String phoneNo,
       String address,
+      BuildContext context
       ) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
@@ -152,91 +153,29 @@ class ProfileController extends GetxController {
       // Show success message
       Get.snackbar("Success", "Pharmacy has been registered successfully",
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.green);
+      addPharmacyIsLoading.value = false;
+      Navigator.pop(context);
+
 
     } on FirebaseException catch (e) {
       Get.snackbar('Error', 'Firebase Error: ${e.message}',
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
+      addPharmacyIsLoading.value = false;
+
     } catch (e) {
       Get.snackbar('Error', 'Error: $e',
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
+      addPharmacyIsLoading.value = false;
+
     } finally {
       // Stop loading
       addPharmacyIsLoading.value = false;
     }
   }
-  /* // Function to pick an image from the source and upload it
-  Future<void> pickImageFromForPharmacy(ImageSource source) async {
-    try {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: source);
-      if (pickedFile != null) {
-        final image = File(pickedFile.path);
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          final storageRef =
-              FirebaseStorage.instance.ref().child('${user.uid}.jpg');
-          await storageRef.putFile(image);
-          final imageUrl = await storageRef.getDownloadURL();
-          await FirebaseFirestore.instance
-              .collection('pharmacy')
-              .doc(user.uid)
-              .update({'pharmacyImage': imageUrl});
 
-          Get.snackbar("Success", "Image updated successfully",
-              snackPosition: SnackPosition.TOP, backgroundColor: Colors.green);
-        } else {
-          Get.snackbar('Error', 'User is not authenticated',
-              snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-        }
-      }
-    } on FirebaseException catch (e) {
-      if (e.code == 'unauthorized') {
-        Get.snackbar('Error', 'You are not authorized to perform this action',
-            snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      } else {
-        Get.snackbar('Error', 'Error: ${e.message}',
-            snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      }
-      print("Firebase Exception: $e");
-    } catch (e) {
-      Get.snackbar('Error', 'Error: $e',
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-      print("Error picking image: $e");
-    }
-  }
-
-// registration of pharmacy
-  Future<void> registerPharmacy(
-      String pharmacyName, String phoneNo, String address) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    try {
-      // adding the name of the pharmacy to current user collection
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .update({'pharmacy': pharmacyName});
-      // for public collection
-      await FirebaseFirestore.instance
-          .collection('pharmacies')
-          .doc(userId)
-          .set({
-        'pharmacyName': pharmacyName,
-        'phoneNo': phoneNo,
-        'address': address,
-        'pharmacyImage': null
-      });
-      Get.snackbar("Success", "Pharmacy has been registered successfully",
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.green);
-      Get.back();
-    } catch (e) {
-      print(e.toString());
-      Get.snackbar('Error', 'Error: ${e.toString()}',
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
-    }
-  }*/
 
   File? medicineImageFile;
-  var addMedicineIsLoading = true.obs;
+  var addMedicineIsLoading = false.obs;
 
   // Method to pick an image from the specified source
   Future<File?> medicinePickImageFromSource(ImageSource source) async {
@@ -260,6 +199,7 @@ class ProfileController extends GetxController {
       String productSideEffects,
       String productUsage,
       String contactNo,
+      BuildContext context
       ) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
 
@@ -285,6 +225,7 @@ class ProfileController extends GetxController {
         'productUsage': productUsage,
         'productImage': null,
         'contactNo': contactNo,
+
       };
 
       // Step 1: If an image file is provided, upload it to Firebase Storage
@@ -312,13 +253,20 @@ class ProfileController extends GetxController {
       // Show success message after completion
       Get.snackbar("Success", "Medicine has been registered successfully",
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.green);
+      addMedicineIsLoading.value= false;
+      Navigator.pop(context);
+
 
     } on FirebaseException catch (e) {
       Get.snackbar('Error', 'Firebase Error: ${e.message}',
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
+      addMedicineIsLoading.value= false;
+
     } catch (e) {
       Get.snackbar('Error', 'Error: $e',
           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red);
+      addMedicineIsLoading.value= false;
+
     } finally {
       // Set loading to false once done
       addMedicineIsLoading.value = false;
@@ -327,36 +275,5 @@ class ProfileController extends GetxController {
 
   }
 
-/*  // Medicine adding to pharmacy of current user.
 
-  Future<void> medicineRegistration(
-    String productDetails,
-    String productDosage,
-    String productFormula,
-    String productIngredient,
-    String productName,
-    String productPrecaution,
-    String productSideEffects,
-    String productUsage,
-    String contactNo,
-  ) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    await FirebaseFirestore.instance
-        .collection('user')
-        .doc(userId)
-        .collection('pharmacyMed')
-        .doc()
-        .set({
-      'productDetails': '',
-      'productDosage': '',
-      'productFormula': '',
-      'productIngredient': '',
-      'productName': '',
-      'productPrecaution': '',
-      'productSideEffects': '',
-      'productUsage': '',
-      'productImage': medicineImageFile,
-      'contactNo': ''
-    });
-  }*/
 
