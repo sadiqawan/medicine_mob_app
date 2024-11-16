@@ -10,6 +10,8 @@ import 'package:medicine_app/view/components/buy_now_custom_btn.dart';
 import 'package:medicine_app/view/components/profile_custom_icons.dart';
 import 'package:medicine_app/view/screen/pharmacy_and_medicine_add/add_medicine_screen.dart';
 import 'package:medicine_app/view/screen/pharmacy_and_medicine_add/add_pharmacy_screen.dart';
+import 'package:medicine_app/view/screen/profile/help_screen.dart';
+import 'package:medicine_app/view/screen/profile/privacy_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -277,9 +279,14 @@ class ProfileScreen extends StatelessWidget {
                   Get.to(const AddMedicineScreen());
                 }),*/
                 ProfileCustomIcons(Icons.settings, 'Settings', context, () {}),
-                ProfileCustomIcons(Icons.help, 'Help', context, () {}),
+                ProfileCustomIcons(Icons.help, 'Help', context, () {
+                  Get.to(()=> HelpScreen());
+
+                }),
                 ProfileCustomIcons(
-                    Icons.privacy_tip, 'Privacy Policy', context, () {}),
+                    Icons.privacy_tip, 'Privacy Policy', context, () {
+                      Get.to(()=> PrivacyScreen());
+                }),
                 ProfileCustomIcons(Icons.logout, 'Logout', context, () {
                   Get.dialog(
                     AlertDialog(
