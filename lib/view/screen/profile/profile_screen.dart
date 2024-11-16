@@ -8,8 +8,8 @@ import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/controller/profile_controller/profile_controller.dart';
 import 'package:medicine_app/view/components/buy_now_custom_btn.dart';
 import 'package:medicine_app/view/components/profile_custom_icons.dart';
-import 'package:medicine_app/view/screen/profile/add_medicine_screen.dart';
-import 'package:medicine_app/view/screen/profile/add_pharmacy_screen.dart';
+import 'package:medicine_app/view/screen/pharmacy_and_medicine_add/add_medicine_screen.dart';
+import 'package:medicine_app/view/screen/pharmacy_and_medicine_add/add_pharmacy_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

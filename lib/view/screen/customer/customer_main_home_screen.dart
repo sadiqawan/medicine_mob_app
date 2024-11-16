@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/controller/profile_controller/profile_controller.dart';
+import 'package:medicine_app/view/screen/customer/all_medicine_screen.dart';
+import 'package:medicine_app/view/screen/customer/all_pharmacies_screen.dart';
 import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
 import 'package:medicine_app/view/screen/customer/seller_detial_screen.dart';
 
@@ -120,7 +122,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
               ),
             ),
             SizedBox(height: screenHeight * 0.01),
-           /* Padding(
+            /* Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
               child: TextField(
                 decoration: InputDecoration(
@@ -148,9 +150,14 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                     "Popular Medicine",
                     style: largePrimaryBoldText,
                   ),
-                  Text(
-                    "See All",
-                    style: mediumPrimaryBoldText,
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => AllMedicineScreen());
+                    },
+                    child: Text(
+                      "See All",
+                      style: mediumPrimaryBoldText,
+                    ),
                   ),
                 ],
               ),
@@ -161,49 +168,6 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
               child: Padding(
                 padding: EdgeInsets.all(screenWidth * 0.02),
                 child: getAllMedicine(context),
-                /* GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    crossAxisSpacing: screenWidth * 0.02,
-                    mainAxisSpacing: screenHeight * 0.02,
-                  ),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: medicineList.length,
-                  itemBuilder: (context, index) {
-                    final medicine = medicineList[index];
-                    return InkWell(
-                      onTap: () {
-                        Get.to(() => const MedicineDetailScreen());
-                      },
-                      child: Container(
-                        width: screenWidth * 0.4,
-                        decoration: BoxDecoration(
-                          color: kWhite,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(screenWidth * 0.02),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Image.asset(
-                                  medicine["imagePath"]!,
-                                  height: screenHeight * 0.1,
-                                  width: screenWidth * 0.2,
-                                ),
-                              ),
-                              SizedBox(height: screenHeight * 0.02),
-                              Text(medicine["name"]!, style: smallTextBlack),
-                              Text(medicine["price"]!,
-                                  style: mediumTextBlackBold),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                )*/
               ),
             ),
             SizedBox(height: screenHeight * 0.02),
@@ -213,63 +177,20 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Top Seller", style: largePrimaryBoldText),
-                  Text("See All", style: largePrimaryBoldText),
+                  InkWell(
+                    onTap: () {
+                      Get.to(()=> AllPharmaciesScreen() );
+                    },
+                    child: Text(
+                      "See All",
+                      style: mediumPrimaryBoldText,
+                    ),
+                  ),
                 ],
               ),
             ),
             Expanded(child: getAllPharmacies(context)
-                /* ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-                scrollDirection: Axis.vertical,
-                itemCount: sellerList.length,
-                itemBuilder: (context, index) {
-                  final seller = sellerList[index];
-                  return Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                    child: InkWell(
-                      onTap: () {
-                        Get.to(() => const SellerDetailScreen());
-                      },
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            height: screenHeight * 0.1,
-                            width: screenWidth * 0.15,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.asset(
-                                seller["imagePath"]!,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: screenWidth * 0.02),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(seller["name"]!,
-                                  style: mediumPrimaryBoldText),
-                              SizedBox(height: screenHeight * 0.005),
-                              Text(seller["location"]!, style: smallTextGray),
-                            ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            children: [
-                              Icon(Icons.star,
-                                  color: Colors.amber,
-                                  size: screenWidth * 0.04),
-                              Text(seller["rating"]!,
-                                  style: smallPrimaryBoldText),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),*/
+
                 ),
           ],
         ),
