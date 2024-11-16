@@ -120,7 +120,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
               ),
             ),
             SizedBox(height: screenHeight * 0.01),
-            Padding(
+           /* Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
               child: TextField(
                 decoration: InputDecoration(
@@ -137,7 +137,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                   ),
                 ),
               ),
-            ),
+            ),*/
             SizedBox(height: screenHeight * 0.01),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
@@ -421,7 +421,18 @@ Widget getAllMedicine(BuildContext context) {
 
             return InkWell(
               onTap: () {
-                Get.to(() => const MedicineDetailScreen());
+                Get.to(() => MedicineDetailScreen(
+                      productImage: medicine['productImage'],
+                      productName: medicine['productName'],
+                      productFormula: medicine['productFormula'],
+                      productDetails: medicine['productDetails'],
+                      productIngredients: medicine['productIngredient'],
+                      productDosage: medicine['productDosage'],
+                      productPrecaution: medicine['productPrecaution'],
+                      productSideEffects: medicine['productSideEffects'],
+                      productUsage: medicine['productUsage'],
+                      contact: medicine['contactNo'],
+                    ));
               },
               child: Container(
                 width: screenWidth * 0.4,
@@ -450,7 +461,7 @@ Widget getAllMedicine(BuildContext context) {
                         style: smallTextBlack,
                       ),
                       Text(
-                        '${medicine["productPrice"]} PKR' ?? 'No Price',
+                        '${medicine["productPrice"]} PKR',
                         style: mediumTextBlackBold,
                       ),
                     ],
@@ -497,7 +508,14 @@ Widget getAllPharmacies(BuildContext context) {
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => const SellerDetailScreen());
+                  Get.to(
+                    () => SellerDetailScreen(
+                      image: seller['pharmacyImage'],
+                      pharmacyName: seller['pharmacyName'],
+                      pharmacyAddress: seller['address'],
+                      pharmacyContact: seller['phoneNo'],
+                    ),
+                  );
                 },
                 child: Row(
                   children: [

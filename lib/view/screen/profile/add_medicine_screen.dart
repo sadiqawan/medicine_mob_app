@@ -319,7 +319,8 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                     hintText: "Enter product usage",
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.05),
+                SizedBox(height: screenHeight * 0.02),
+
                 Text(
                   "Product Price",
                   style: mediumPrimaryText,
@@ -337,7 +338,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                     hintText: "Enter product Price",
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.05),
+                SizedBox(height: screenHeight * 0.02),
                 Text(
                   "Product contact no ",
                   style: mediumPrimaryText,

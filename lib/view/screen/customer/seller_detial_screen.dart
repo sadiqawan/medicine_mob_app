@@ -6,7 +6,17 @@ import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/view/screen/chat/user_chatting_screen.dart';
 
 class SellerDetailScreen extends StatefulWidget {
-  const SellerDetailScreen({super.key});
+  final String image;
+  final String pharmacyName;
+  final String pharmacyAddress;
+  final String pharmacyContact;
+
+  const SellerDetailScreen(
+      {super.key,
+      required this.image,
+      required this.pharmacyName,
+      required this.pharmacyAddress,
+      required this.pharmacyContact});
 
   @override
   State<SellerDetailScreen> createState() => _SellerDetailScreenState();
@@ -30,7 +40,7 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Pharmacy Name
-                Text("Dream for Health Pharmacy", style: largePrimaryBoldText),
+                Text(widget.pharmacyName, style: largePrimaryBoldText),
                 const SizedBox(height: 5),
 
                 // Logo
@@ -38,16 +48,20 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
                   color: Colors.white,
                   width: double.infinity,
                   height: 166,
-                  child: Image.asset("assets/images/sale_logo2.jpg"),
+                  child: Image.network(
+                    widget.image,
+                  ),
                 ),
                 const SizedBox(height: 16),
 
                 // Seller Details
                 Text("Seller Details", style: mediumPrimaryBoldText),
                 const SizedBox(height: 8),
-                Text("Address: Minneapolis, Minnesota", style: smallTextGray),
+                Text("Address: ${widget.pharmacyAddress}",
+                    style: smallTextGray),
                 const SizedBox(height: 4),
-                Text("Contact Number: +1 234 567 890", style: smallTextGray),
+                Text("Contact Number: ${widget.pharmacyContact}",
+                    style: smallTextGray),
                 const SizedBox(height: 4),
                 Text("Working Hours: 9:00 to 17:00", style: smallTextGray),
                 const SizedBox(height: 4),
@@ -65,8 +79,10 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
                 const SizedBox(height: 16),
 
                 // Top Products Section with ListView.builder and "Buy Now" button
-                Text("Top Products", style: mediumPrimaryBoldText),
-                const SizedBox(height: 8),
+                Text("For any Products contact us!", style: mediumPrimaryBoldText),
+                const SizedBox(height: 16),
+
+             /*   const SizedBox(height: 8),
                 SizedBox(
                   height: 200, // Adjust height as needed
                   child: ListView.builder(
@@ -75,30 +91,33 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
                         child: ListTile(
-                          leading: Image.asset("assets/images/medicine1.png"), // Replace with product image
-                          title: Text("Product ${index + 1}", style: smallTextGray),
-                          subtitle: 
+                          leading: Image.asset("assets/images/medicine1.png"),
+                          // Replace with product image
+                          title: Text("Product ${index + 1}",
+                              style: smallTextGray),
+                          subtitle:
                               Text("Product description", style: smallTextGray),
-                              trailing: ElevatedButton(
-                                onPressed: () {
-                                  // Add buy now functionality here
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: kPrimaryColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                                child: Text("Buy Now",style: smallTextWhiteBold,),
+                          trailing: ElevatedButton(
+                            onPressed: () {
+                              // Add buy now functionality here
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: kPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              
-                            
+                            ),
+                            child: Text(
+                              "Buy Now",
+                              style: smallTextWhiteBold,
+                            ),
+                          ),
                         ),
                       );
                     },
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 16),*/
 
                 // Rating Section
                 Text("Rating", style: mediumPrimaryBoldText),
@@ -137,7 +156,7 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Get.to(()=>const UserChattingScreen());
+                    Get.to(() => const UserChattingScreen());
                   },
                   child: Container(
                     height: 60,
@@ -150,7 +169,8 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
                           color: kPinkColor, // Color for Chat button
                           borderRadius: BorderRadius.circular(100),
                         ),
-                        child: Center(child: Text("Chat", style: mediumTextWhiteBold)),
+                        child: Center(
+                            child: Text("Chat", style: mediumTextWhiteBold)),
                       ),
                     ),
                   ),

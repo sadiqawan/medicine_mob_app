@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:medicine_app/constant/color_const.dart';
 import 'package:medicine_app/constant/styles_const.dart';
 import 'package:medicine_app/controller/profile_controller/profile_controller.dart';
+import 'package:medicine_app/view/components/buy_now_custom_btn.dart';
 import 'package:medicine_app/view/components/profile_custom_icons.dart';
 import 'package:medicine_app/view/screen/profile/add_medicine_screen.dart';
 import 'package:medicine_app/view/screen/profile/add_pharmacy_screen.dart';
@@ -133,6 +134,10 @@ class ProfileScreen extends StatelessWidget {
                         'Loading..',
                         style: smallTextWhiteBold,
                       ),
+                      Text(
+                        'Loading..',
+                        style: smallTextWhiteBold,
+                      ),
                     ],
                   ),
                 );
@@ -245,6 +250,10 @@ class ProfileScreen extends StatelessWidget {
                       style: smallTextWhiteBold,
                     ),
                     Text(
+                      userData?['pharmacy'] == null ? 'User' : 'Seller',
+                      style: smallTextWhiteBold,
+                    ),
+                    Text(
                       time != null ? format.format(time) : 'No Time',
                       style: smallTextWhiteBold,
                     ),
@@ -258,14 +267,15 @@ class ProfileScreen extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(screenWidth * 0.04),
               children: [
-                ProfileCustomIcons(
+                becomeSeller(),
+               /* ProfileCustomIcons(
                     Icons.local_pharmacy_outlined, 'Add Pharmacy', context, () {
                   Get.to(const AddPharmacyScreen());
                 }),
                 ProfileCustomIcons(
                     Icons.local_pharmacy_outlined, 'Add Medicine', context, () {
                   Get.to(const AddMedicineScreen());
-                }),
+                }),*/
                 ProfileCustomIcons(Icons.settings, 'Settings', context, () {}),
                 ProfileCustomIcons(Icons.help, 'Help', context, () {}),
                 ProfileCustomIcons(
@@ -311,4 +321,33 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+// becomeSeller btn
+Widget becomeSeller() {
+  ProfileController controller = Get.put(ProfileController());
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: StreamBuilder(
+        stream: controller.getUserDataStream(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return BuyNowCustomBtn(myText: 'Loading..', onTap: () {});
+          }
+          var userData = snapshot.data?.data();
+          if (userData!['pharmacy'] == null) {
+            return BuyNowCustomBtn(
+                myText: 'Become Seller',
+                onTap: () {
+                  Get.to(() => AddPharmacyScreen());
+                });
+          } else {
+            return BuyNowCustomBtn(
+                myText: 'Add Medicine to Store',
+                onTap: () {
+                  Get.to(() => AddMedicineScreen());
+                });
+          }
+        }),
+  );
 }
