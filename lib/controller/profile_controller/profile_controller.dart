@@ -198,7 +198,9 @@ class ProfileController extends GetxController {
       String productPrecaution,
       String productSideEffects,
       String productUsage,
+
       String contactNo,
+      String productPrice,
       BuildContext context
       ) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
@@ -223,6 +225,7 @@ class ProfileController extends GetxController {
         'productPrecaution': productPrecaution,
         'productSideEffects': productSideEffects,
         'productUsage': productUsage,
+        'productPrice': productPrice,
         'productImage': null,
         'contactNo': contactNo,
 

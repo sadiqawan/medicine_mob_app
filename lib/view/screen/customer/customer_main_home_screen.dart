@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicine_app/constant/color_const.dart';
@@ -159,7 +160,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
               height: screenHeight * 0.25,
               child: Padding(
                 padding: EdgeInsets.all(screenWidth * 0.02),
-                child: GridView.builder(
+                child: getAllMedicine(context),
+                /* GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
                     crossAxisSpacing: screenWidth * 0.02,
@@ -201,7 +203,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                       ),
                     );
                   },
-                ),
+                )*/
               ),
             ),
             SizedBox(height: screenHeight * 0.02),
@@ -215,8 +217,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                 ],
               ),
             ),
-            Expanded(
-              child: ListView.builder(
+            Expanded(child: getAllPharmacies(context)
+                /* ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
                 scrollDirection: Axis.vertical,
                 itemCount: sellerList.length,
@@ -267,8 +269,8 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                     ),
                   );
                 },
-              ),
-            ),
+              ),*/
+                ),
           ],
         ),
       ),
@@ -276,18 +278,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+// logout conformation in main screen
 
 Widget logoutConformation(BuildContext context) {
   ProfileController profileController = Get.put(ProfileController());
@@ -336,6 +327,8 @@ Widget logoutConformation(BuildContext context) {
   );
 }
 
+// getting  current user image form firebase
+
 Widget userImage(BuildContext context) {
   final screenWidth = MediaQuery.of(context).size.width;
 
@@ -364,6 +357,8 @@ Widget userImage(BuildContext context) {
       });
 }
 
+//getting current user name form firebase
+
 Widget userName() {
   ProfileController controller = Get.put(ProfileController());
   return StreamBuilder(
@@ -388,4 +383,160 @@ Widget userName() {
           );
         }
       });
+}
+
+//getting all medicine form firebase
+Widget getAllMedicine(BuildContext context) {
+  CustomerMainController controller = Get.put(CustomerMainController());
+  final screenHeight = MediaQuery.of(context).size.height;
+  final screenWidth = MediaQuery.of(context).size.width;
+
+  return StreamBuilder(
+    stream: controller.getMedicineDataStream(),
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(
+          child: CircularProgressIndicator(color: Colors.orange),
+        );
+      }
+
+      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        return Text(
+          "No Medicine added yet..",
+          style: largeTextWhiteBold,
+        );
+      } else {
+        var medicineData = snapshot.data!.docs;
+
+        return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1,
+            crossAxisSpacing: screenWidth * 0.02,
+            mainAxisSpacing: screenHeight * 0.02,
+          ),
+          scrollDirection: Axis.horizontal,
+          itemCount: medicineData.length,
+          itemBuilder: (context, index) {
+            final medicine = medicineData[index].data() as Map<String, dynamic>;
+
+            return InkWell(
+              onTap: () {
+                Get.to(() => const MedicineDetailScreen());
+              },
+              child: Container(
+                width: screenWidth * 0.4,
+                decoration: BoxDecoration(
+                  color: kWhite,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(screenWidth * 0.02),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Image.network(
+                          medicine["productImage"] ?? '',
+                          height: screenHeight * 0.1,
+                          width: screenWidth * 0.2,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.error, color: Colors.red);
+                          },
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Text(
+                        medicine["productName"] ?? 'No Name',
+                        style: smallTextBlack,
+                      ),
+                      Text(
+                        '${medicine["productPrice"]} PKR' ?? 'No Price',
+                        style: mediumTextBlackBold,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      }
+    },
+  );
+}
+
+// getting all pharmacies form form firebase
+Widget getAllPharmacies(BuildContext context) {
+  CustomerMainController controller = Get.put(CustomerMainController());
+  final screenHeight = MediaQuery.of(context).size.height;
+  final screenWidth = MediaQuery.of(context).size.width;
+  return StreamBuilder(
+    stream: controller.getPharmaciesDataStream(),
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(
+          child: CircularProgressIndicator(color: Colors.orange),
+        );
+      }
+
+      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        return Text(
+          "No Pharmacies added yet..",
+          style: largeTextWhiteBold,
+        );
+      } else {
+        var pharmaciesData = snapshot.data!.docs;
+
+        return ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+          scrollDirection: Axis.vertical,
+          itemCount: pharmaciesData.length,
+          itemBuilder: (context, index) {
+            final seller = pharmaciesData[index].data() as Map<String, dynamic>;
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+              child: InkWell(
+                onTap: () {
+                  Get.to(() => const SellerDetailScreen());
+                },
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: screenHeight * 0.1,
+                      width: screenWidth * 0.15,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(
+                          seller["pharmacyImage"]!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: screenWidth * 0.02),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(seller["pharmacyName"]!,
+                            style: mediumPrimaryBoldText),
+                        SizedBox(height: screenHeight * 0.005),
+                        Text(seller["address"]!, style: smallTextGray),
+                      ],
+                    ),
+                    const Spacer(),
+                    Column(
+                      children: [
+                        Icon(Icons.star,
+                            color: Colors.amber, size: screenWidth * 0.04),
+                        Text('4.9', style: smallPrimaryBoldText),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      }
+    },
+  );
 }

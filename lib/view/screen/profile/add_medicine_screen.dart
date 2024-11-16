@@ -23,6 +23,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
   TextEditingController productPrecaution = TextEditingController();
   TextEditingController productSideEffects = TextEditingController();
   TextEditingController productUsage = TextEditingController();
+  TextEditingController productPrice = TextEditingController();
   TextEditingController contactNo = TextEditingController();
 
   @override
@@ -37,6 +38,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
     productSideEffects;
     productUsage;
     contactNo;
+    productPrice;
 
     super.initState();
   }
@@ -53,6 +55,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
     productSideEffects.dispose();
     productUsage.dispose();
     contactNo.dispose();
+    productPrice.dispose();
     super.dispose();
   }
 
@@ -318,6 +321,24 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.05),
                 Text(
+                  "Product Price",
+                  style: mediumPrimaryText,
+                ),
+                TextField(
+                  controller: productPrice,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide:
+                          BorderSide(color: Colors.grey.withOpacity(0.5)),
+                    ),
+                    hintText: "Enter product Price",
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.05),
+                Text(
                   "Product contact no ",
                   style: mediumPrimaryText,
                 ),
@@ -353,8 +374,8 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                               productSideEffects.text.isEmpty ||
                               productUsage.text.isEmpty ||
                               contactNo.text.isEmpty ||
-                          controller.medicineImageFile==null
-                          ) {
+                              productPrice.text.isEmpty ||
+                              controller.medicineImageFile == null) {
                             Get.snackbar(
                                 'Failed', 'Please fill in the required fields',
                                 backgroundColor: Colors.red.withOpacity(0.3));
@@ -369,6 +390,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                                 productSideEffects.text.trim(),
                                 productUsage.text.trim(),
                                 contactNo.text.trim(),
+                                productPrice.text.trim(),
                                 context);
                           }
                         },
