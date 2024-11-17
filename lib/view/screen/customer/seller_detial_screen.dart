@@ -10,13 +10,14 @@ class SellerDetailScreen extends StatefulWidget {
   final String pharmacyName;
   final String pharmacyAddress;
   final String pharmacyContact;
+  final String pharmacyId;
 
   const SellerDetailScreen(
       {super.key,
       required this.image,
       required this.pharmacyName,
       required this.pharmacyAddress,
-      required this.pharmacyContact});
+      required this.pharmacyContact, required this.pharmacyId});
 
   @override
   State<SellerDetailScreen> createState() => _SellerDetailScreenState();
@@ -156,7 +157,8 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Get.to(() => const UserChattingScreen());
+                    Get.to(() =>  UserChattingScreen(pharmacyName: widget.pharmacyName, receiverId: widget.pharmacyId,));
+                    // Get.to(() =>  UserChattingScreen(pharmacyName: widget.pharmacyName, pharmacyId: widget.pharmacyId,));
                   },
                   child: Container(
                     height: 60,

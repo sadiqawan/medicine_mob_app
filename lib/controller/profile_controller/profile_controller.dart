@@ -131,6 +131,8 @@ class ProfileController extends GetxController {
         'phoneNo': phoneNo,
         'address': address,
         'pharmacyImage': null,
+        'pharmacyId': userId
+
       };
 
       // Step 2: If an image is provided, upload it

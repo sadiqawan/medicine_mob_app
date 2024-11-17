@@ -66,7 +66,7 @@ class _NewChatScreenState extends State<NewChatScreen> {
               title: Text(user["name"]!),
               onTap: () {
                 // Navigate to UserChatScreen when tapped
-                Get.to(() => const UserChattingScreen());
+                // Get.to(() => const UserChattingScreen());
               },
             );
           },

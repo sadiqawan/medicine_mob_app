@@ -8,7 +8,6 @@ import 'package:medicine_app/view/screen/customer/all_medicine_screen.dart';
 import 'package:medicine_app/view/screen/customer/all_pharmacies_screen.dart';
 import 'package:medicine_app/view/screen/customer/medicine_detail_screen.dart';
 import 'package:medicine_app/view/screen/customer/seller_detial_screen.dart';
-
 import '../../../controller/customer_main_home_screen_controller/customer_main_controller.dart';
 
 class CustomerMainHomeScreen extends StatefulWidget {
@@ -21,56 +20,6 @@ class CustomerMainHomeScreen extends StatefulWidget {
 class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
   CustomerMainController customerMainController =
       Get.put(CustomerMainController());
-
-  final List<Map<String, String>> medicineList = [
-    {
-      "name": "Panadol 600mg",
-      "price": "120 PKR",
-      "imagePath": "assets/images/medicine1.png"
-    },
-    {
-      "name": "Brufen 400mg",
-      "price": "80 PKR",
-      "imagePath": "assets/images/medicine2.png"
-    },
-    {
-      "name": "Nuberol 400mg",
-      "price": "200 PKR",
-      "imagePath": "assets/images/medicine3.png"
-    },
-    {
-      "name": "Provas 400mg",
-      "price": "600 PKR",
-      "imagePath": "assets/images/medicine4.png"
-    },
-  ];
-
-  final List<Map<String, String>> sellerList = [
-    {
-      "name": "Modern Pharmacy Peshawar",
-      "location": "University Road Peshawar",
-      "rating": "4.5",
-      "imagePath": "assets/images/sale_logo1.jpg"
-    },
-    {
-      "name": "Health Plus Pharmacy",
-      "location": "Mall Road Cantt",
-      "rating": "4.7",
-      "imagePath": "assets/images/sale_logo2.jpg"
-    },
-    {
-      "name": "Dream for Health Pharmacy",
-      "location": "Charsadda Road Peshawar",
-      "rating": "4.9",
-      "imagePath": "assets/images/sale_logo3.jpg"
-    },
-    {
-      "name": "Helping You Pharmacy",
-      "location": "Hayatabad Peshawar",
-      "rating": "4.3",
-      "imagePath": "assets/images/sale_logo4.jpg"
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -122,24 +71,6 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
               ),
             ),
             SizedBox(height: screenHeight * 0.01),
-            /* Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search Medicine...',
-                  prefixIcon: Icon(Icons.search, size: screenWidth * 0.06),
-                  filled: true,
-                  fillColor: const Color(0xFFF2F2F2),
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    vertical: screenHeight * 0.02,
-                  ),
-                ),
-              ),
-            ),*/
             SizedBox(height: screenHeight * 0.01),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
@@ -179,7 +110,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                   Text("Top Seller", style: largePrimaryBoldText),
                   InkWell(
                     onTap: () {
-                      Get.to(()=> AllPharmaciesScreen() );
+                      Get.to(() => AllPharmaciesScreen());
                     },
                     child: Text(
                       "See All",
@@ -189,9 +120,7 @@ class _CustomerMainHomeScreenState extends State<CustomerMainHomeScreen> {
                 ],
               ),
             ),
-            Expanded(child: getAllPharmacies(context)
-
-                ),
+            Expanded(child: getAllPharmacies(context)),
           ],
         ),
       ),
@@ -435,6 +364,7 @@ Widget getAllPharmacies(BuildContext context) {
                       pharmacyName: seller['pharmacyName'],
                       pharmacyAddress: seller['address'],
                       pharmacyContact: seller['phoneNo'],
+                      pharmacyId: seller['pharmacyId'],
                     ),
                   );
                 },
@@ -452,23 +382,28 @@ Widget getAllPharmacies(BuildContext context) {
                       ),
                     ),
                     SizedBox(width: screenWidth * 0.02),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(seller["pharmacyName"]!,
-                            style: mediumPrimaryBoldText),
-                        SizedBox(height: screenHeight * 0.005),
-                        Text(seller["address"]!, style: smallTextGray),
-                      ],
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(seller["pharmacyName"]!,
+                              style: mediumPrimaryBoldText),
+                          SizedBox(height: screenHeight * 0.005),
+                          Text(seller["address"]!, style: smallTextGray,),
+                          Icon(Icons.star,
+                              color: Colors.amber, size: screenWidth * 0.04),
+                          Text('4.9', style: smallPrimaryBoldText),
+                        ],
+                      ),
                     ),
-                    const Spacer(),
-                    Column(
+
+                    /*Column(
                       children: [
                         Icon(Icons.star,
                             color: Colors.amber, size: screenWidth * 0.04),
                         Text('4.9', style: smallPrimaryBoldText),
                       ],
-                    ),
+                    ),*/
                   ],
                 ),
               ),

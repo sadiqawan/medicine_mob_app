@@ -65,6 +65,7 @@ Widget getAllPharmacies(BuildContext context) {
                       pharmacyName: seller['pharmacyName'],
                       pharmacyAddress: seller['address'],
                       pharmacyContact: seller['phoneNo'],
+                      pharmacyId: seller['pharmacyId'],
                     ),
                   );
                 },
@@ -82,23 +83,28 @@ Widget getAllPharmacies(BuildContext context) {
                       ),
                     ),
                     SizedBox(width: screenWidth * 0.02),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(seller["pharmacyName"]!,
-                            style: mediumPrimaryBoldText),
-                        SizedBox(height: screenHeight * 0.005),
-                        Text(seller["address"]!, style: smallTextGray),
-                      ],
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(seller["pharmacyName"]!,
+                              style: mediumPrimaryBoldText),
+                          SizedBox(height: screenHeight * 0.005),
+                          Text(seller["address"]!, style: smallTextGray,),
+                          Icon(Icons.star,
+                              color: Colors.amber, size: screenWidth * 0.04),
+                          Text('4.9', style: smallPrimaryBoldText),
+                        ],
+                      ),
                     ),
-                    const Spacer(),
+                   /* const Spacer(),
                     Column(
                       children: [
                         Icon(Icons.star,
                             color: Colors.amber, size: screenWidth * 0.04),
                         Text('4.9', style: smallPrimaryBoldText),
                       ],
-                    ),
+                    ),*/
                   ],
                 ),
               ),
