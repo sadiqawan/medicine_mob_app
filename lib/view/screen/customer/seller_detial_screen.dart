@@ -157,8 +157,9 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Get.to(() =>  UserChattingScreen(pharmacyName: widget.pharmacyName, receiverId: widget.pharmacyId,));
-                    // Get.to(() =>  UserChattingScreen(pharmacyName: widget.pharmacyName, pharmacyId: widget.pharmacyId,));
+                    Get.to(() =>  UserChattingScreen(
+                      pharmacyName: widget.pharmacyName,
+                      receiverId: widget.pharmacyId,));
                   },
                   child: Container(
                     height: 60,

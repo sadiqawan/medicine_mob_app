@@ -9,7 +9,7 @@ class ChatService extends ChangeNotifier {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   //Send massage
-  Future<void> sandMassage(String receiverId, String massage) async {
+  Future<void> sandMassage(String receiverId, String massage,String receiverName) async {
     // get current user
     final String currentUserId = _firebaseAuth.currentUser!.uid;
     final String currentUserEmail = _firebaseAuth.currentUser!.email.toString();
@@ -37,7 +37,22 @@ class ChatService extends ChangeNotifier {
         .doc(chatRoomId)
         .collection('messages')
         .add(newMassage.toMap());
+
+    // Update the chat room's last message and timestamp
+    await _firebaseFirestore.collection('chat_rooms').doc(chatRoomId).set({
+      'lastMessage': massage,
+      'timestamp': timestamp,
+      'participants': ids,
+     "sanderEmail": currentUserEmail,
+      "receiverId": receiverId,
+      "receiverName" : receiverName
+
+    });
+
+
   }
+
+
 
 // Get massage
 
@@ -51,6 +66,21 @@ class ChatService extends ChangeNotifier {
         .doc(chatRoomId)
         .collection('messages')
         .orderBy('timestamp', descending: false)
+        .snapshots();
+
+
+  }
+
+  // get all the list of user who have sand massage
+
+// Get chat list for the current user
+  Stream<QuerySnapshot> getChatList() {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+
+    return _firebaseFirestore
+        .collection('chat_rooms')
+        .where('participants', arrayContains: currentUserId)
+        .orderBy('timestamp', descending: true)
         .snapshots();
   }
 }
