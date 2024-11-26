@@ -29,8 +29,8 @@ class _UserChattingScreenState extends State<UserChattingScreen> {
 
   void sandMessage() async {
     if (_messageController.text.isNotEmpty) {
-      await _chatService.sandMassage(
-          widget.receiverId, _messageController.text.trim(),widget.pharmacyName);
+      await _chatService.sandMassage(widget.receiverId,
+          _messageController.text.trim(), widget.pharmacyName);
       // clear the controller after sending message
       _messageController.clear();
     }
@@ -51,9 +51,7 @@ class _UserChattingScreenState extends State<UserChattingScreen> {
           ),
           body: Column(
             children: [
-              Expanded(child: _buildMessageList()
-
-                  ),
+              Expanded(child: _buildMessageList()),
               _buildingMessageInput()
             ],
           ),
@@ -116,7 +114,6 @@ class _UserChattingScreenState extends State<UserChattingScreen> {
     );
   }
 
-
   // building a message input
 
   Widget _buildingMessageInput() {
@@ -156,5 +153,3 @@ class _UserChattingScreenState extends State<UserChattingScreen> {
     );
   }
 }
-
-
